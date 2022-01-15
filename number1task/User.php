@@ -9,28 +9,11 @@ class User
         $this->name = $name;
         $this->age = $age;
     }
-
-    public function setName ($name) {
-        $this->name = $name;
-    }
-
-    public function getName (): string {
-        return $this->name;
-    }
-
-    public function setAge ($age) {
-        $this->age = $age;
-    }
-
-    public function getAge (): int {
-        return $this->age;
-    }
 }
 
 class Student extends User
 {
     private int $studentSalary;
-    private int $course;
 
     public function setStudentSalary ($studentSalary) {
         $this->studentSalary = $studentSalary;
@@ -38,14 +21,6 @@ class Student extends User
 
     public function getStudentSalary(): int {
         return $this->studentSalary;
-    }
-
-    public function setCourse ($course) {
-        $this->course = $course;
-    }
-
-    public function getCourse () {
-        return $this->course;
     }
 }
 
@@ -83,7 +58,6 @@ echo "Sum of the student salaries: " . $student_1->getStudentSalary() + $student
 class Driver extends User
 {
     private int $experience;
-    private string $category;
 
     public function setExperience ($experience) {
         $this->experience = $experience;
@@ -91,14 +65,6 @@ class Driver extends User
 
     public function getExperience (): int {
         return $this->experience;
-    }
-
-    public function setCategory ($category) {
-        $this->category = $category;
-    }
-
-    public function getCategory (): string {
-        return $this->category;
     }
 }
 
