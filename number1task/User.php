@@ -36,7 +36,7 @@ class Student extends User
         $this->studentSalary = $studentSalary;
     }
 
-    public function getStudentSalary () {
+    public function getStudentSalary(): int {
         return $this->studentSalary;
     }
 
@@ -68,7 +68,7 @@ $worker_1->setSalary(1000);
 $worker_2 = new Worker ('Вася', 26);
 $worker_2->setSalary(2000);
 
-echo $worker_1->getSalary() + $worker_2->getSalary() . PHP_EOL;
+echo "Sum of the workers salaries: " . $worker_1->getSalary() + $worker_2->getSalary() . PHP_EOL;
 
 
 $student_1 = new Student('Даниил', 20);
@@ -77,4 +77,35 @@ $student_1->setStudentSalary(5000);
 $student_2 = new Student('Василий', 22);
 $student_2->setStudentSalary(3000);
 
-echo $student_1->getStudentSalary() + $student_2->getStudentSalary();
+echo "Sum of the student salaries: " . $student_1->getStudentSalary() + $student_2->getStudentSalary() . PHP_EOL;
+
+
+class Driver extends User
+{
+    private int $experience;
+    private string $category;
+
+    public function setExperience ($experience) {
+        $this->experience = $experience;
+    }
+
+    public function getExperience (): int {
+        return $this->experience;
+    }
+
+    public function setCategory ($category) {
+        $this->category = $category;
+    }
+
+    public function getCategory (): string {
+        return $this->category;
+    }
+}
+
+$driver_1 = new Driver ('Vladimir', 40);
+$driver_1->setExperience(10);
+
+$driver_2 = new Driver ('Oleksii', 30);
+$driver_2->setExperience(6);
+
+echo "Sum of the drivers experiences: " . $driver_1->getExperience() + $driver_2->getExperience() . PHP_EOL;
