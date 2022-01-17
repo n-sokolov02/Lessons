@@ -2,45 +2,60 @@
 
 class BankAccount
 {
-    public int $balance;
-    public int $amount;
+    private int $balance;
 
-    public function __construct($balance, $amount) {
-        $this->balance = $balance;
-        $this->amount = $amount;
+    public function __construct($amount)
+    {
+        $this->balance = $amount;
     }
 
-    public function getBalance (): int
+    public function getBalance(): int
     {
         return $this->balance;
     }
 
-    public function depositMoney($amount, $interest): static
+    public function deposit($amount)
     {
-        if ($amount >= 0) {
+        if ($amount > 0) {
             $this->balance += $amount;
-            $this->balance += $interest;
         }
-
         return $this;
     }
+
+    public function withdraw($amount): bool
+    {
+        if ($amount > 0 && $amount <= $this->balance) {
+            $this->balance -= $amount;
+            return true;
+        }
+        return false;
+    }
 }
 
-class SavingAccount extends BankAccount
+
+class CheckingAccount extends BankAccount
 {
-    private float $interestRate;
+    private int $minBalance;
 
-    public function __construct($balance, $amount, $interestRate) {
-        parent::__construct($balance, $amount);
-        $this->interestRate = $interestRate;
+    public function __construct($amount, $minBalance) {
+        if ($amount > 0 && $amount >= $minBalance) {
+            parent::__construct($amount);
+            $this->minBalance = $minBalance;
+        } else {
+            throw new InvalidArgumentException('amount must be more than zero and higher than the minimum balance');
+        }
     }
 
-    public function addInterest() {
-        $interest = $this->interestRate * $this->getBalance();
-        $this->depositMoney($this->amount, $interest);
+    public function withdraw($amount): bool {
+        $canWithdraw = $amount > 0 &&
+            $this->getBalance() - $amount > $this->minBalance;
+
+        if ($canWithdraw) {
+            parent::withdraw($amount);
+
+            return true;
+        }
+
+        return false;
     }
 }
-
-$accountNumber = new SavingAccount(10000, 100, 0.25);
-$accountNumber->addInterest();
-echo $accountNumber->getBalance();
