@@ -14,9 +14,3 @@ class Second extends Main
         return $test . PHP_EOL;
     }
 }
-
-$testing = new Main();
-echo $testing->polymorph();
-
-$android_1 = new Second();
-echo $android_1->polymorph();
