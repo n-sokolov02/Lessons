@@ -2,8 +2,6 @@
 
 namespace Store\Utils;
 
-use JetBrains\PhpStorm\Internal\PhpStormStubsElementAvailable;
-
 class Logger
 {
     public function log($message) {

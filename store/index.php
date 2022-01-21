@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+//namespace App;
 
-$published_at = new \DateTime();
+//$published_at = new \DateTime();
 
-echo $published_at->format('Y-m-d H:i:s');
+//echo $published_at->format('Y-m-d H:i:s');
 //require '../src/Utils/Logger.php';
 //require '../src/Database/Logger.php';
 //
