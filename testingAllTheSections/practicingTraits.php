@@ -16,14 +16,23 @@ trait TestTrait
     }
 }
 
+trait GetImport
+{
+    public function getImportName($importName): string
+    {
+        return $importName;
+    }
+}
+
 class Monthly
 {
     use ImportExecution;
     use TestTrait;
+    use GetImport;
 
     public function InfoAboutRows()
     {
-        echo 'Update table ' . $this->getTable('ap_claims') . '. Affected Rows: ' . $this->getAffectedRows(45);
+        echo $this->getImportName('MONTHLY') . ': Update table ' . $this->getTable('ap_claims') . '. Affected Rows: ' . $this->getAffectedRows(45);
     }
 }
 
