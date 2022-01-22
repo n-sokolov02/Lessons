@@ -1,11 +1,11 @@
 <?php
 
-abstract class Model
+abstract class AbstractModel
 {
     abstract public function chooseModel($data);
 }
 
-class AmericanCar extends Model
+class AmericanCar extends AbstractModel
 {
     public function chooseModel($data)
     {
@@ -16,7 +16,7 @@ class AmericanCar extends Model
     }
 }
 
-class RussianCar extends Model
+class RussianCar extends AbstractModel
 {
     public function chooseModel($data)
     {
