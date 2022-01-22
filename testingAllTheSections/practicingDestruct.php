@@ -6,19 +6,22 @@ class File
     private string $format;
 
     //add info when new object was added
-    public function __construct($filename, $format) {
+    public function __construct($filename, $format)
+    {
         $this->filename = $filename;
         $this->format = $format;
     }
 
     //delete info about object after completing the script
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->format = '.php') {
             echo "Object was destructed.";
         }
     }
 
-    public function echoFileAndFormat(): string {
+    public function echoFileAndFormat(): string
+    {
         return $this->filename . $this->format . PHP_EOL;
     }
 }

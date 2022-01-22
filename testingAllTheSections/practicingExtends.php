@@ -7,12 +7,14 @@ class CarShowroom
     public string $carModel;
     public int $carAmount;
 
-    public function __construct($carNumber, $carModel) {
+    public function __construct($carNumber, $carModel)
+    {
         $this->carNumber = $carNumber;
         $this->carModel = $carModel;
     }
 
-    public function setCarAmount($amount) {
+    public function setCarAmount($amount)
+    {
         $this->carAmount = $amount;
     }
 }
@@ -24,14 +26,16 @@ class Person extends CarShowroom
     private string $surname;
     private string $email;
 
-    public function __construct($carNumber, $carModel, $name, $surname, $email) {
+    public function __construct($carNumber, $carModel, $name, $surname, $email)
+    {
         parent::__construct($carNumber, $carModel);
         $this->name = $name;
         $this->surname = $surname;
         $this->email = $email;
     }
 
-    public function getInfo() {
+    public function getInfo()
+    {
         echo $this->name . PHP_EOL;
         echo $this->surname . PHP_EOL;
         echo $this->email . PHP_EOL;

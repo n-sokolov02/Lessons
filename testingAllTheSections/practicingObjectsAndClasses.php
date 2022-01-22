@@ -6,17 +6,20 @@ class PracticeClass
     public string $text;
     public string $text_2 = 'Practice';
 
-    public function __construct($text) {
+    public function __construct($text)
+    {
         $this->text = $text;
     }
 
     //echoTest is a method
-    public function echoTest () {
+    public function echoTest ()
+    {
         echo $this->text . PHP_EOL;
     }
 
     //echoPractice is a method
-    public function echoPractice () {
+    public function echoPractice ()
+    {
         echo $this->text_2;
     }
 }

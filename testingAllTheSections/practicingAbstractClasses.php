@@ -29,7 +29,8 @@ class RussianCar extends AbstractModel
 
 class Factory
 {
-    public static function getChoose(): void {
+    public static function getChoose(): void
+    {
         $car = new RussianCar();
         $car_1 = new AmericanCar();
         $car->chooseModel('abstract_1');

@@ -4,22 +4,26 @@ class testProtected
 {
     protected string $model;
 
-    public function __construct($model) {
+    public function __construct($model)
+    {
         $this->model = $model;
     }
 
-    protected function format(): string {
+    protected function format(): string
+    {
         return ucwords($this->model);
     }
 
-    public function getModel(): string {
+    public function getModel(): string
+    {
         return $this->format($this->model);
     }
 }
 
 class ParentProtected extends testProtected
 {
-    public function format(): string {
+    public function format(): string
+    {
         return strtoupper($this->model);
     }
 }
