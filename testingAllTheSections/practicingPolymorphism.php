@@ -48,6 +48,7 @@
 
 interface PracticeGreeting
 {
+    const AMOUNT_PEOPLE = 5;
     public function greet();
 }
 
@@ -65,7 +66,7 @@ class PracticeRussianGreet implements PracticeGreeting
     public function greet(): string
     {
         // TODO: Implement greet() method.
-        return 'Привет';
+        return 'Привет от ' . self::AMOUNT_PEOPLE . ' человек';
     }
 }
 
