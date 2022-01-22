@@ -5,11 +5,13 @@ class File
     private string $filename;
     private string $format;
 
+    //add info when new object was added
     public function __construct($filename, $format) {
         $this->filename = $filename;
         $this->format = $format;
     }
 
+    //delete info about object after completing the script
     public function __destruct() {
         if ($this->format = '.php') {
             echo "Object was destructed.";

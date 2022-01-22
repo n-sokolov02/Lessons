@@ -1,5 +1,6 @@
 <?php
 
+//parent class
 class CarShowroom
 {
     public string $carNumber;
@@ -16,6 +17,7 @@ class CarShowroom
     }
 }
 
+//child class
 class Person extends CarShowroom
 {
     private string $name;
