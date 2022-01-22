@@ -16,9 +16,9 @@ class Book implements PracticingInterfaces, TheSecondForPractice
 {
     private string $time;
 
-    public function __construct($time)
+    public function __construct()
     {
-        $this->time = $time;
+        $this->time = date('Y-m-d');
     }
 
     public function isRead($bookName)
@@ -41,7 +41,7 @@ class Book implements PracticingInterfaces, TheSecondForPractice
     }
 }
 
-$practiceInterface = new Book('19:28');
+$practiceInterface = new Book();
 echo "Enter the name of the book: ";
 $chooseBook = readline();
 $practiceInterface->getReaders($chooseBook);
