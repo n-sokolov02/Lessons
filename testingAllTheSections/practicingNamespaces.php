@@ -1,6 +1,6 @@
 <?php
 
-namespace PracticingNameSpaces\Practice;
+namespace Practice;
 
 class PracticingNamespaces
 {
@@ -13,5 +13,13 @@ class PracticingNamespaces
     public function getName(): string
     {
         return $this->name;
+    }
+}
+
+class Product extends PracticingNamespaces
+{
+    public function formatEcho(): string
+    {
+        return 'This is a nice echo for ' . $this->getName() . PHP_EOL;
     }
 }

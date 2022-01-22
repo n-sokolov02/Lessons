@@ -1,7 +1,24 @@
 <?php
 
 require '../practicingNamespaces.php';
-use PracticingNameSpaces\Practice\PracticingNamespaces;
+use Practice\Product;
 
-$practice = new PracticingNamespaces('Alex Doe');
-echo $practice->getName();
+class Job extends Product
+{
+    private string $job;
+
+    public function __construct($job)
+    {
+        parent::__construct('Alex Doe');
+        $this->job = $job;
+    }
+
+    public function outputPersonJob()
+    {
+        echo $this->formatEcho();
+        echo 'His job: ' . $this->job;
+    }
+}
+
+$practice = new Job('PHP developer');
+$practice->outputPersonJob();
