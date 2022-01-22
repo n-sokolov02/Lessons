@@ -52,6 +52,11 @@ interface PracticeGreeting
     public function greet();
 }
 
+interface NotToGreet
+{
+    public function notGreet();
+}
+
 class PracticeEnglishGreet implements PracticeGreeting
 {
     public function greet(): string
@@ -70,6 +75,15 @@ class PracticeRussianGreet implements PracticeGreeting
     }
 }
 
+class PracticeNotToGreet implements NotToGreet
+{
+    public function notGreet(): string
+    {
+        // TODO: Implement notGreet() method.
+        return 'I will not greet you';
+    }
+}
+
 $greeting = [
     new PracticeEnglishGreet(),
     new PracticeRussianGreet(),
@@ -83,3 +97,6 @@ function allTheGreetings($greeting)
 }
 
 allTheGreetings($greeting);
+
+$execNotToGreetClass = new PracticeNotToGreet();
+echo $execNotToGreetClass->notGreet();
