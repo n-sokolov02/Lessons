@@ -24,7 +24,8 @@ class Book implements PracticingInterfaces, TheSecondForPractice
     public function isRead($bookName)
     {
         // TODO: Implement isRead() method.
-        if ($bookName == 'Book_1') {
+        if ($bookName == 'Book_1')
+        {
             echo "Amount of readers: " . self::READERS_AMOUNT . PHP_EOL;
             echo "Yes, the book " . $bookName. " was read at " . $this->time . PHP_EOL;
             echo "Amount of these books: " . self::BOOK_AMOUNT;
