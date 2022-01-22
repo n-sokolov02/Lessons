@@ -1,47 +1,84 @@
 <?php
 
-abstract class AbstractPerson
+//abstract class AbstractPerson
+//{
+//    abstract public function personName();
+//}
+//
+//class EnglishPerson extends AbstractPerson
+//{
+//    public function personName(): string
+//    {
+//        // TODO: Implement personName() method.
+//        return 'Daniil' . PHP_EOL;
+//    }
+//}
+//
+//class GermanPerson extends AbstractPerson
+//{
+//    public function personName(): string
+//    {
+//        // TODO: Implement personName() method.
+//        return 'Voldemar' . PHP_EOL;
+//    }
+//}
+//
+//class RussianPerson extends AbstractPerson
+//{
+//    public function personName(): string
+//    {
+//        // TODO: Implement personName() method.
+//        return 'Vladimir' . PHP_EOL;
+//    }
+//}
+//
+//$people = [
+//    new EnglishPerson(),
+//    new GermanPerson(),
+//    new RussianPerson(),
+//];
+//
+//function allPersons($people) {
+//    foreach ($people as $person) {
+//        echo $person->personName();
+//    }
+//}
+//
+//allPersons($people);
+
+interface PracticeGreeting
 {
-    abstract public function personName();
+    public function greet();
 }
 
-class EnglishPerson extends AbstractPerson
+class PracticeEnglishGreet implements PracticeGreeting
 {
-    public function personName(): string
+    public function greet(): string
     {
-        // TODO: Implement personName() method.
-        return 'Daniil' . PHP_EOL;
+        // TODO: Implement greet() method.
+        return 'Hi!';
     }
 }
 
-class GermanPerson extends AbstractPerson
+class PracticeRussianGreet implements PracticeGreeting
 {
-    public function personName(): string
+    public function greet(): string
     {
-        // TODO: Implement personName() method.
-        return 'Voldemar' . PHP_EOL;
+        // TODO: Implement greet() method.
+        return 'Привет';
     }
 }
 
-class RussianPerson extends AbstractPerson
-{
-    public function personName(): string
-    {
-        // TODO: Implement personName() method.
-        return 'Vladimir' . PHP_EOL;
-    }
-}
-
-$people = [
-    new EnglishPerson(),
-    new GermanPerson(),
-    new RussianPerson(),
+$greeting = [
+    new PracticeEnglishGreet(),
+    new PracticeRussianGreet(),
 ];
 
-function allPersons($people) {
-    foreach ($people as $person) {
-        echo $person->personName();
+function allTheGreetings($greeting)
+{
+    foreach ($greeting as $oneGreet) {
+        echo $oneGreet->greet() . PHP_EOL;
     }
 }
 
-allPersons($people);
+allTheGreetings($greeting);
