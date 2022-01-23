@@ -1,6 +1,6 @@
 <?php
 
-namespace Practice;
+namespace practicingNamespaces\OOP;
 
 class PracticingNamespaces
 {
