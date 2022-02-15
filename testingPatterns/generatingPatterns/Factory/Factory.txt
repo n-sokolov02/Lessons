@@ -3,8 +3,91 @@ FACTORY
 позволяя подклассам изменять тип создаваемых объектов
 На примере автоконструктора:
 Создаем интерфейс в котором описываем методы
-Создаем три класса (конструктор быстрой, большой и дешевой машины)
-Имплементируем эти методы в каждом классе
+    interface CarFactory {
+        public function buildEngine();
+        public function buildWheels();
+        public function testingProduct();
+    }
+Создаем три класса (конструктор быстрой, большой и дешевой машины), которые имплементируют методы интерфейса
+    class FastCar implements CarFactory
+    {
+        public function buildEngine()
+        {
+            // TODO: Implement buildEngine() method.
+            echo 'Fast Engine' . PHP_EOL;
+        }
+
+        public function buildWheels()
+        {
+            // TODO: Implement buildWheels() method.
+            echo 'Fast Wheels' . PHP_EOL;
+        }
+
+        public function testingProduct()
+        {
+            // TODO: Implement testingProduct() method.
+            echo 'Fast Testing' . PHP_EOL;
+        }
+    }
+
+    class BigCar implements CarFactory
+    {
+        public function buildEngine()
+        {
+            // TODO: Implement buildEngine() method.
+            echo 'Big Engine' . PHP_EOL;
+        }
+
+        public function buildWheels()
+        {
+            // TODO: Implement buildWheels() method.
+            echo 'Big Wheels' . PHP_EOL;
+        }
+
+        public function testingProduct()
+        {
+            // TODO: Implement testingProduct() method.
+            echo 'Big Testing' . PHP_EOL;
+        }
+    }
+
+    class CheapCar implements CarFactory
+    {
+        public function buildEngine()
+        {
+            // TODO: Implement buildEngine() method.
+            echo 'Cheap Engine' . PHP_EOL;
+        }
+
+        public function buildWheels()
+        {
+            // TODO: Implement buildWheels() method.
+            echo 'Cheap Wheels' . PHP_EOL;
+        }
+
+        public function testingProduct()
+        {
+            // TODO: Implement testingProduct() method.
+            echo 'Cheap Testing' . PHP_EOL;
+        }
+    }
 Создаем класс фабрики, в котором создаем функцию, в теле которой создается
 экземпляр одного из трех классов и вызовы функций
+    class Factory
+    {
+        /**
+         * @param $car
+         */
+        public static function factory($car)
+        {
+            $object = new $car;
+            $object->buildEngine();
+            $object->buildWheels();
+            $object->testingProduct();
+        }
+
+    }
 Вне класса вызываем функцию описанную выше в классе фабрики с соответствующими параметрами
+    echo 'What car do you want to build?' . PHP_EOL;
+    $parameters = readline();
+    $object = Factory::factory($parameters);

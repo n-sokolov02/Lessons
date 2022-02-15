@@ -1,0 +1,95 @@
+BUILDER
+Создание сложных объектов пошагово. Дает возможность использовать один и тот же код для получения разных представлений объектов
+Инициализируем интерфейс с описанием методов в который будут делаться определенные шаги
+Создаем класс строителя, который имплементирует методы интерфейса строитель
+    interface Builder
+    {
+        public function produceStepA(): void;
+        public function produceStepB(): void;
+        public function produceStepC(): void;
+    }
+Создаем приватное свойство продукта, в конструкторе очищаем его функцией reset, которая прописана в этом же классе
+    private ?Product $product;
+
+    public function __construct()
+    {
+        $this->resetProduct();
+    }
+В функции очищения просто создаем новый экземпляр класса Продукт
+    public function resetProduct(): void
+    {
+        $this->product = new Product();
+    }
+В классе строителя описываем реализацию методов построения шагов продукта
+    public function produceStepA(): void
+    {
+        // TODO: Implement produceStepA() method.
+        $this->product->parts[] = "PartA1";
+    }
+
+    public function produceStepB(): void
+    {
+        // TODO: Implement produceStepB() method.
+        $this->product->parts[] = "PartB1";
+    }
+
+    public function produceStepC(): void
+    {
+        // TODO: Implement produceStepC() method.
+        $this->product->parts[] = "PartC1";
+    }
+Создаем метод getProduct, в котором готовый продукт присваем переменной и очищаем содержимое "старого" продукта
+    public function getProduct(): Product
+    {
+        $result = $this->product;
+        $this->resetProduct();
+
+        return $result;
+    }
+Создаем класс Product в котором объявляем вывод частей построения продукта
+    public array $parts = [];
+    public function listParts(): void
+    {
+        echo "Product parts: " . implode(', ', $this->parts) . PHP_EOL . PHP_EOL;
+    }
+Объявляем класс Director, в котором объявляем свойство builder класса Builder
+    /**
+     * @var FirstBuilder|null
+     */
+    private ?FirstBuilder $builder;
+Создаем метод setBuilder, в которую передается экземпляр класса Builder.
+    public function setBuilder(Builder $builder): void
+    {
+        $this->builder = $builder;
+    }
+Создаем n-ое количество методов в которых описаны разные реализации продукта
+    public function buildMinimalViableProduct(): void
+    {
+        $this->builder->produceStepA();
+    }
+
+    public function buildFullFeatureProduct(): void
+    {
+        $this->builder->produceStepA();
+        $this->builder->produceStepB();
+        $this->builder->produceStepC();
+    }
+Создаем независимую (вне классов) функцию clientCode, в которую передается экземпляр класса Director:
+    function clientCode (Director $director)
+    {
+        $builder = new FirstBuilder();
+        $director->setBuilder($builder);
+
+        echo "Standard basic product: " . PHP_EOL;
+        $director->buildMinimalViableProduct();
+        $builder->getProduct()->listParts();
+
+        echo "Standard full feature product: " . PHP_EOL;
+        $director->buildFullFeatureProduct();
+        $builder->getProduct()->listParts();
+
+        echo "Custom product: " . PHP_EOL;
+        $builder->produceStepA();
+        $builder->produceStepC();
+        $builder->getProduct()->listParts();
+    }
