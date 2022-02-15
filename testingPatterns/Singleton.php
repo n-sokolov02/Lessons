@@ -2,7 +2,7 @@
 
 class Singleton
 {
-    private static $instance = null;
+    private static array $instances = [];
 
     /**
      * @return Singleton
@@ -10,12 +10,13 @@ class Singleton
 
     public static function getInstance(): Singleton
     {
-        if (null == self::$instance)
+        $cls = static::class;
+        if (!isset(self::$instances[$cls]))
         {
-            self::$instance = new self();
+            self::$instances[$cls] = new static();
         }
 
-        return self::$instance;
+        return self::$instances[$cls];
     }
 
     private function __clone()
@@ -26,17 +27,26 @@ class Singleton
     {
     }
 
-    public function test()
+    /**
+     * @throws Exception
+     */
+    private function __wakeup(): void
     {
-        var_dump($this);
+        // TODO: Implement __wakeup() method.
+        throw new Exception("Cannot unserialize a singleton.");
+    }
+
+}
+
+function UsersCode()
+{
+    $obj1 = Singleton::getInstance();
+    $obj2 = Singleton::getInstance();
+    if ($obj1 === $obj2) {
+        echo 'Singleton works, both variables contain the same instance' . PHP_EOL;
+    } else {
+        echo 'Singleton failed, variables contain different instances' . PHP_EOL;
     }
 }
 
-$object = Singleton::getInstance();
-$object->test();
-Singleton::getInstance()->test();
-
-// fatal error: 
-//$object_2 = new Singleton();
-//$object_2 = clone $object();
-
+UsersCode();

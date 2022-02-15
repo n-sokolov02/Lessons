@@ -1,0 +1,32 @@
+SINGLETON
+Гарантирует наличие единственного объекта класса (пример: правительство государства)
+Будет единственный экземпляр класса, доступный всем (общий доступ к базе данных из разных частей программы)
+1. Добавить в класс приватное статическое поле, которое будет содержать одиночный объект
+private static ?{name_of_the_class} $instance = null;
+2. Объявить публичный статический создающий метод, который будет использоваться для получения одиночки
+    /**
+     * @return PracticeSingleton
+     */
+    public static function getSingleInstance(): PracticeSingleton
+    {
+        if (self::$instance == null) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
+    }
+3. Объект синглтон не может быть клонируемым
+    private function __clone()
+    {
+    }
+4. "Ленивая инициализация" (создание объекта при первом вызове метода)
+        if (self::$instance == null) {
+            self::$instance = new static();
+        }
+5. Приватный конструктор класса (чтобы "заставить" взаимодействовать с конструктором только через статический метод)
+    private function __construct()
+    {
+        echo 'Testing Singleton' . PHP_EOL;
+    }
+6. В пользовательском коде заменить вызовы конструктора одиночки вызовами его статического метода
+$object_1 = PracticeSingleton::getSingleInstance();
