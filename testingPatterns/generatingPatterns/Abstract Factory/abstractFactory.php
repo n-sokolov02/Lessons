@@ -8,6 +8,17 @@ interface AbstractFactory
     public function createProductB(): AbstractProductB;
 }
 
+interface AbstractProductA
+{
+    public function usefulFunctionA(): string;
+}
+
+interface AbstractProductB
+{
+    public function usefulFunctionB(): string;
+    public function anotherUsefulFunctionB(AbstractProductA $collaborator): string;
+}
+
 class ConcreteFactory1 implements AbstractFactory
 {
     /**
@@ -50,11 +61,6 @@ class ConcreteFactory2 implements AbstractFactory
     }
 }
 
-interface AbstractProductA
-{
-    public function usefulFunctionA(): string;
-}
-
 class ConcreteProductA implements AbstractProductA
 {
     public function usefulFunctionA(): string
@@ -71,12 +77,6 @@ class ConcreteProductA2 implements AbstractProductA
         // TODO: Implement usefulFunctionA() method.
         return "The result of the product A2.";
     }
-}
-
-interface AbstractProductB
-{
-    public function usefulFunctionB(): string;
-    public function anotherUsefulFunctionB(AbstractProductA $collaborator): string;
 }
 
 class ConcreteProductB implements AbstractProductB
