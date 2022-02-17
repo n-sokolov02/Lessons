@@ -16,8 +16,8 @@ class PracticeFacade
 
     #[Pure] public function __construct(PracticeColumn1 $practiceColumn1 = null, PracticeColumn2 $practiceColumn2 = null)
     {
-        $this->practiceColumn1 = $practiceColumn1 ?: new PracticeColumn1;
-        $this->practiceColumn2 = $practiceColumn2 ?: new PracticeColumn2;
+        $this->practiceColumn1 = $practiceColumn1;
+        $this->practiceColumn2 = $practiceColumn2;
     }
 
     #[Pure] public function echoFacades(): string
