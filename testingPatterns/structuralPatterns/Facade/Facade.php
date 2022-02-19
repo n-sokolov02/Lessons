@@ -4,8 +4,8 @@ use JetBrains\PhpStorm\Pure;
 
 class Facade
 {
-    protected $subsystem1;
-    protected $subsystem2;
+    protected ?Subsystem1 $subsystem1;
+    protected ?Subsystem2 $subsystem2;
 
     #[Pure] public function __construct(Subsystem1 $subsystem1 = null, Subsystem2 $subsystem2 = null)
     {
