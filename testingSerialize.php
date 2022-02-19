@@ -1,6 +1,8 @@
 <?php
 
-class Customer
+use JetBrains\PhpStorm\ArrayShape;
+
+class SerializeCustomer
 {
     private int $id;
 
@@ -14,21 +16,16 @@ class Customer
         $this->email = $email;
     }
 
-    public function getInitial() {
-        if ($this->name !== '') {
-            return strtoupper(substr($this->name, 0, 1));
-        }
-    }
-
-    public function __serialize(): array {
+    #[ArrayShape(['id' => "int", 'name' => "string", 'email' => 'string'])] public function __serialize(): array {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'email' => $this->email,
         ];
     }
 }
 
-$customer = new Customer(10, 'John Doe', 'john.doe@sxope.com');
+$customer = new SerializeCustomer(10, 'John Doe', 'john.doe@sxope.com');
 $str = serialize($customer);
 
 var_dump($str);

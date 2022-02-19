@@ -2,13 +2,14 @@
 
 class Comparator
 {
-    private $key;
+    private int $key;
 
     public function __construct(string $key) {
         $this->key = $key;
     }
 
-    public function __invoke($a, $b) {
+    public function __invoke($a, $b): int
+    {
         return $a[$this->key] <=> $b[$this->key];
     }
 }

@@ -9,7 +9,7 @@ class FileLogger implements Logger
 {
     private $handle;
 
-    private $logFile;
+    protected file $logFile;
 
     public function __construct($filename,  $mode = 'a') {
         $this->logFile = $filename;

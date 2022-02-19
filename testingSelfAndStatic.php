@@ -25,7 +25,7 @@ class TestStatic
 $exp = TestStatic::get();
 $exp2 = TestStatic::get();
 
-if ($exp == $exp2) {
+if ($exp === $exp2) {
     echo 'Singleton works' . PHP_EOL;
 } else {
     echo 'Singleton failed' . PHP_EOL;

@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\Pure;
+
 class Customer
 {
     protected string $name;
@@ -12,8 +14,8 @@ class Customer
         return ucwords($this->name);
     }
 
-    public function getName(): string {
-        return $this->format($this->name) . PHP_EOL;
+    #[Pure] public function getName(): string {
+        return $this->format() . PHP_EOL;
     }
 }
 

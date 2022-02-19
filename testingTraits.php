@@ -1,7 +1,7 @@
 <?php
 
 //conflict resolution
-trait FileLogger
+trait TestingFileLogger
 {
     public function log($msg)
     {
@@ -9,7 +9,7 @@ trait FileLogger
     }
 }
 
-trait DatabaseLogger
+trait TestingDatabaseLogger
 {
     public function log($msg)
     {
@@ -17,23 +17,23 @@ trait DatabaseLogger
     }
 }
 
-class Logger
+class TestingLogger
 {
-    use FileLogger, DatabaseLogger{
-        DatabaseLogger::log insteadof FileLogger;
+    use TestingFileLogger, TestingDatabaseLogger {
+        TestingDatabaseLogger::log insteadof TestingFileLogger;
     }
 }
 
-$logger = new Logger();
+$logger = new TestingLogger();
 $logger->log('this is a test message #1');
 $logger->log('this is a test message #2');
 
 
 class testAsTraits
 {
-    use FileLogger, DatabaseLogger{
-        DatabaseLogger::log as logToDatabase;
-        FileLogger::log insteadof DatabaseLogger;
+    use TestingFileLogger, TestingDatabaseLogger{
+        TestingDatabaseLogger::log as logToDatabase;
+        TestingFileLogger::log insteadof TestingDatabaseLogger;
     }
 }
 
@@ -52,7 +52,7 @@ trait Preprocessor
 
 trait Compiler
 {
-    public function createExec()
+    public function compiler()
     {
         echo 'Compile code... done' . PHP_EOL;
     }
@@ -60,7 +60,7 @@ trait Compiler
 
 trait Assembler
 {
-    public function createExec()
+    public function assembler()
     {
         echo 'Create the object code files... done.' . PHP_EOL;
     }
@@ -68,7 +68,7 @@ trait Assembler
 
 trait Linker
 {
-    public function createExec()
+    public function link()
     {
         echo 'Create the executable file...done' . PHP_EOL;
     }
@@ -76,12 +76,17 @@ trait Linker
 
 class IDE
 {
-    use Preprocessor, Compiler, Assembler, Linker {
-        Compiler::createExec insteadof Assembler, Linker;
-        Assembler::createExec insteadof Compiler, Linker;
-        Linker::createExec insteadof Compiler, Assembler;
+    use Preprocessor, Compiler, Assembler, Linker;
+
+    public function run()
+    {
+        $this->preprocess();
+        $this->compiler();
+        $this->assembler();
+        $this->link();
     }
 }
 
 $ide = new IDE();
+$ide->run();
 

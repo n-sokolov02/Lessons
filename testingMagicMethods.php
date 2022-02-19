@@ -20,7 +20,8 @@ class HtmlElement
         }
     }
 
-    public function html($innerHTML = '') {
+    public function html($innerHTML = ''): string
+    {
         $html = "<$this->tag";
         foreach ($this->attributes as $key => $value) {
             $html .= ' ' . $key . '="'. $value . '"';
@@ -33,14 +34,6 @@ class HtmlElement
     }
 }
 
-//$div = new HtmlElement('div');
-//$div->id = 'page';
-//$div->class = 'light';
-//echo $div->html('Hello');
+$div = new HtmlElement('div');
+echo $div->html('Hello');
 
-$article = new HtmlElement('article');
-$article->id = 'main';
-$article->class = 'light';
-
-echo $article->class . PHP_EOL;
-echo $article->id;

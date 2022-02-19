@@ -25,7 +25,7 @@ class Quarter
     private int $number;
 
     public function __construct($number) {
-        if ($number < 0 && $number > 4) {
+        if ($number < 0 || $number > 4) {
             throw new InvalidArgumentException('Quarter must be between 1 and 4');
         }
         $this->number = $number;

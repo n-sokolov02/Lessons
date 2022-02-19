@@ -2,8 +2,8 @@
 
 class Point
 {
-    private int $x;
-    private int $y;
+    protected int $x;
+    protected int $y;
 
     public function __construct($x, $y) {
         $this->x = $x;
@@ -22,7 +22,7 @@ else {
 }
 
 $p3 = $p2;
-if ($p2 === $p3) {
+if ($p1 === $p3) {
     echo 'p2 and p3 are equal.' . PHP_EOL;
 }
 else {

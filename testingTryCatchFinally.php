@@ -20,8 +20,7 @@
 
 function divide ($x, $y) {
     try {
-        $result = $x / $y;
-        return $result;
+        return $x / $y;
     } catch (Exception $e) {
         return null;
     } finally {

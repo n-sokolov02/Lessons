@@ -1,6 +1,6 @@
 <?php
 
-class Str
+class ClassString
 {
     private string $s = '';
 
@@ -24,7 +24,7 @@ class Str
     }
 }
 
-$s = new Str('Hello, World!');
+$s = new ClassString('Hello, World!');
 echo $s->upper() . PHP_EOL;
 echo $s->lower() . PHP_EOL;
 echo $s->length() . PHP_EOL;

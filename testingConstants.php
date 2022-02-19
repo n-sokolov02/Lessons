@@ -9,15 +9,15 @@ abstract class Model
     }
 }
 
-class User extends Model
+class ConstantUser extends Model
 {
     protected const TABLE_NAME = 'users';
 }
 
-class Role extends Model
+class ConstantRole extends Model
 {
     protected const TABLE_NAME = 'roles';
 }
 
-echo (new User)->all();
-echo (new Role)->all();
+echo (new ConstantUser)->all();
+echo (new ConstantRole)->all();

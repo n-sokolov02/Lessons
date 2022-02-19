@@ -1,22 +1,20 @@
 <?php
 
-class Customer
+class UnserializeCustomer
 {
-    public function __construct (
-        private int $id,
-        private string $name,
-        private string $email,
-    ) {
-    }
+    protected int $id;
+    protected string $name;
+    protected string $email;
 
-    public function getInitial() {
-        if ($this->name !== '') {
-            return strtoupper(substr($this->name, 0, 1));
-        }
+    public function __construct ($id, $name, $email)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
     }
 }
 
-$customer = new Customer(10, 'John Doe', 'john.doe@sxope.com');
+$customer = new UnserializeCustomer(10, 'John Doe', 'john.doe@sxope.com');
 $str = serialize($customer);
 file_put_contents('customer.dat', $str);
 

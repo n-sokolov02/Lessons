@@ -1,13 +1,15 @@
 <?php
 
-interface Logger
+use JetBrains\PhpStorm\Pure;
+
+interface ImplementLogger
 {
     public function log(string $message): void;
 }
 
-abstract class SimpleLogger implements Logger
+abstract class SimpleLogger implements ImplementLogger
 {
-    protected $newLine;
+    protected string $newLine;
 
     public function __construct(bool $newLine) {
         $this->newLine = $newLine;
@@ -17,7 +19,7 @@ abstract class SimpleLogger implements Logger
 }
 
 $logger = new class(true) extends SimpleLogger {
-    public function __construct(bool $newLine) {
+    #[Pure] public function __construct(bool $newLine) {
         parent::__construct($newLine);
     }
 

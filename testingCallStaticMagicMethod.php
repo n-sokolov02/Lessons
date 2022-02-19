@@ -8,6 +8,9 @@ class Str
         'len' => 'strlen'
     ];
 
+    /**
+     * @throws Exception
+     */
     public static function __callStatic(string $method, array $parameters)
     {
         if (!array_key_exists($method, self::$methods)) {

@@ -71,21 +71,21 @@ interface Greeting
 
 class English implements Greeting
 {
-    public function greet() {
+    public function greet(): string {
         return 'Hello!';
     }
 }
 
 class German implements Greeting
 {
-    public function greet() {
+    public function greet(): string {
         return 'Hallo!';
     }
 }
 
 class French implements Greeting
 {
-    public function greet() {
+    public function greet(): string {
         return 'Bonjour!';
     }
 }
