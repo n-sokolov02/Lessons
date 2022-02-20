@@ -24,7 +24,7 @@ class Student extends User
     }
 }
 
-class Worker extends User
+class UserWorker extends User
 {
     private int $salary;
 
@@ -37,10 +37,10 @@ class Worker extends User
     }
 }
 
-$worker_1 = new Worker('Иван', 25);
+$worker_1 = new UserWorker('Иван', 25);
 $worker_1->setSalary(1000);
 
-$worker_2 = new Worker ('Вася', 26);
+$worker_2 = new UserWorker ('Вася', 26);
 $worker_2->setSalary(2000);
 
 echo "Sum of the workers salaries: " . $worker_1->getSalary() + $worker_2->getSalary() . PHP_EOL;
