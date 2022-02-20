@@ -32,7 +32,7 @@ class Monthly
 
     public function InfoAboutRows()
     {
-        echo $this->getImportName('MONTHLY') . ': Update table ' . $this->getTable('ap_claims') . '. Affected Rows: ' . $this->getAffectedRows(45) . ' ' . $this->letsGo();
+        echo $this->getImportName('MONTHLY') . ': Update table ' . $this->getTable('ap_claims') . '. Affected Rows: ' . $this->getAffectedRows(45);
     }
 }
 
