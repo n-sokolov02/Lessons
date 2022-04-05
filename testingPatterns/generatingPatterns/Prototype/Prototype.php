@@ -17,7 +17,7 @@ class Prototype
 
 class ComponentWithBackReference
 {
-    public $prototype;
+    public Prototype $prototype;
 
     public function __construct(Prototype $prototype)
     {
