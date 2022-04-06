@@ -1,6 +1,8 @@
 <?php
 
 //parent class
+use JetBrains\PhpStorm\Pure;
+
 class CarShowroom
 {
     public string $carNumber;
@@ -26,7 +28,7 @@ class Person extends CarShowroom
     private string $surname;
     private string $email;
 
-    public function __construct($carNumber, $carModel, $name, $surname, $email)
+    #[Pure] public function __construct($carNumber, $carModel, $name, $surname, $email)
     {
         parent::__construct($carNumber, $carModel);
         $this->name = $name;
