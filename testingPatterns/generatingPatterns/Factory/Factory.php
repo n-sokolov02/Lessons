@@ -1,89 +1,46 @@
 <?php
 
-interface CarFactory {
-    public function buildEngine();
-    public function buildWheels();
-    public function testingProduct();
+abstract class Factory
+{
+    public static function buildEngine($car)
+    {
+        return new $car;
+    }
+
+    abstract public function build();
 }
 
-class FastCar implements CarFactory
+class FastCar extends Factory
 {
-    public function buildEngine()
+    public function build()
     {
         // TODO: Implement buildEngine() method.
-        echo 'Fast Engine' . PHP_EOL;
-    }
-
-    public function buildWheels()
-    {
-        // TODO: Implement buildWheels() method.
-        echo 'Fast Wheels' . PHP_EOL;
-    }
-
-    public function testingProduct()
-    {
-        // TODO: Implement testingProduct() method.
-        echo 'Fast Testing' . PHP_EOL;
+        echo 'FastCar' . PHP_EOL;
     }
 }
 
-class BigCar implements CarFactory
+class BigCar extends Factory
 {
-    public function buildEngine()
+    public function build()
     {
-        // TODO: Implement buildEngine() method.
-        echo 'Big Engine' . PHP_EOL;
-    }
-
-    public function buildWheels()
-    {
-        // TODO: Implement buildWheels() method.
-        echo 'Big Wheels' . PHP_EOL;
-    }
-
-    public function testingProduct()
-    {
-        // TODO: Implement testingProduct() method.
-        echo 'Big Testing' . PHP_EOL;
+        // TODO: Implement build() method.
+        echo 'BigCar' . PHP_EOL;
     }
 }
 
-class CheapCar implements CarFactory
+class CheapCar extends Factory
 {
-    public function buildEngine()
+    public function build()
     {
-        // TODO: Implement buildEngine() method.
-        echo 'Cheap Engine' . PHP_EOL;
-    }
-
-    public function buildWheels()
-    {
-        // TODO: Implement buildWheels() method.
-        echo 'Cheap Wheels' . PHP_EOL;
-    }
-
-    public function testingProduct()
-    {
-        // TODO: Implement testingProduct() method.
-        echo 'Cheap Testing' . PHP_EOL;
+        // TODO: Implement build() method.
+        echo 'CheapCar' . PHP_EOL;
     }
 }
 
-class Factory
-{
-    /**
-     * @param $car
-     */
-    public static function factory($car)
-    {
-        $object = new $car;
-        $object->buildEngine();
-        $object->buildWheels();
-        $object->testingProduct();
-    }
+$cheapCar = Factory::buildEngine('CheapCar');
+$bigCar = Factory::buildEngine('BigCar');
+$fastCar = Factory::buildEngine('FastCar');
 
-}
-
-echo 'What car do you want to build?' . PHP_EOL;
-$parameters = readline();
-$object = Factory::factory($parameters);
+$cheapCar->build();
+$bigCar->build();
+$fastCar->build();
