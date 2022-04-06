@@ -38,6 +38,7 @@ function clientCode()
     } else {
         echo "Primitive field values have not been copied. Booo!\n";
     }
+
     if ($p1->component === $p2->component) {
         echo "Simple component has not been cloned. Booo!\n";
     } else {
