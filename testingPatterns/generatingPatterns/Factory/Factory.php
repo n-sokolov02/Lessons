@@ -37,10 +37,9 @@ class CheapCar extends Factory
     }
 }
 
-$cheapCar = Factory::buildEngine('CheapCar');
-$bigCar = Factory::buildEngine('BigCar');
-$fastCar = Factory::buildEngine('FastCar');
-
-$cheapCar->build();
-$bigCar->build();
-$fastCar->build();
+$lowPrice = Factory::buildEngine('CheapCar');
+$mediumPrice = Factory::buildEngine('BigCar');
+$highPrice = Factory::buildEngine('FastCar');
+$lowPrice->build();
+$mediumPrice->build();
+$highPrice->build();
