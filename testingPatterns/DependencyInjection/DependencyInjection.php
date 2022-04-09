@@ -51,13 +51,13 @@ class SMSNotifier implements Notifications
 
 class OrderProcessing
 {
-    private Logger $logger;
+    private Logger $text;
     private OrderRepository $repositories;
     private SMSNotifier $SMSNotifier;
 
-    public function __construct(Logger $logger, OrderRepository $repositories, SMSNotifier $SMSNotifier)
+    public function __construct(Logger $text, OrderRepository $repositories, SMSNotifier $SMSNotifier)
     {
-        $this->logger = $logger;
+        $this->text = $text;
         $this->repositories = $repositories;
         $this->SMSNotifier = $SMSNotifier;
     }
@@ -65,7 +65,7 @@ class OrderProcessing
     public function getNewOrder()
     {
         /* here will be some kind of logic */
-        $this->logger->getLogMessage('Table has been updated.');
+        $this->text->getLogMessage('Table has been updated.');
         $this->repositories->makeOrder();
         $this->SMSNotifier->send('The message was sent.');
     }
