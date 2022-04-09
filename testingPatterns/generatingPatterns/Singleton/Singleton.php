@@ -2,7 +2,7 @@
 
 class Singleton
 {
-    private static array $instances = [];
+    public static array $instances = [];
 
     private function __construct()
     {
@@ -13,13 +13,13 @@ class Singleton
     }
 
     /**
-     * @return mixed
+     * @return void
      * @throws Exception
      */
-    private function __wakeup()
+    public function __wakeup(): void
     {
         // TODO: Implement __wakeup() method.
-        throw new Exception('Cannot serialize Singleton');
+        throw new Exception('Cannot serialize singleton');
     }
 
     /**
@@ -28,7 +28,7 @@ class Singleton
     public static function getInstance(): Singleton
     {
         $cls = static::class;
-        if(!isset(self::$instances[$cls]))
+        if (!isset(self::$instances[$cls]))
         {
             self::$instances[$cls] = new static();
         }
@@ -37,14 +37,18 @@ class Singleton
     }
 }
 
-$object_1 = Singleton::getInstance();
-$object_2 = Singleton::getInstance();
+function serviceCode()
+{
+    $object_1 = Singleton::getInstance();
+    $object_2 = Singleton::getInstance();
 
-if ($object_1 === $object_2)
-{
-    echo 'Singleton works, variables contain the same instance';
+    if ($object_1 === $object_2)
+    {
+        echo 'Singleton works, both variables contain the same instance';
+    } else
+    {
+        echo 'Singleton failed, variables contain different instances';
+    }
 }
-else
-{
-    echo 'Singleton failed, variables contain different instances';
-}
+
+serviceCode();
