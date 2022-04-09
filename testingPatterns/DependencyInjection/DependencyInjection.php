@@ -1,6 +1,9 @@
 <?php
 
 namespace DependencyInjectionForLearning;
+use Auryn\Injector;
+
+require '../../vendor/autoload.php';
 
 interface Order
 {
@@ -68,5 +71,5 @@ class OrderProcessing
     }
 }
 
-$object = new OrderProcessing(new Logger(), new OrderRepository(), new SMSNotifier());
-$object->getNewOrder();
+$injection = new Injector();
+$injection->make(OrderProcessing::class)->getNewOrder();
