@@ -22,12 +22,14 @@ interface LogMessages
 
 class OrderRepository implements Order
 {
-    protected array $repositories = ['learning-lessons', 'auto-execution', 'job-tasks'];
+    private array $repositories = ['learning-lessons', 'auto-execution', 'job-tasks'];
 
     public function makeOrder()
     {
         // TODO: Implement makeOrder() method.
         sort($this->repositories, SORT_STRING);
+        echo '-List of repositories-' . PHP_EOL;
+        print implode(' | ', $this->repositories);
     }
 }
 
@@ -66,8 +68,8 @@ class OrderProcessing
     {
         /* here will be some kind of logic */
         $this->text->getLogMessage('Table has been updated.');
+        $this->SMSNotifier->send('The message was sent.' . PHP_EOL);
         $this->repositories->makeOrder();
-        $this->SMSNotifier->send('The message was sent.');
     }
 }
 
