@@ -37,14 +37,21 @@ class ThirdCarWash extends FactoryWash
     }
 }
 
-$firstCarWash = FirstCarWash::buildWash('FirstCarWash');
-$secondCarWash = SecondCarWash::buildWash('SecondCarWash');
-$thirdCarWash = ThirdCarWash::buildWash('ThirdCarWash');
+$initArray =
+    [
+        FirstCarWash::buildWash('FirstCarWash'),
+        SecondCarWash::buildWash('SecondCarWash'),
+        ThirdCarWash::buildWash('ThirdCarWash'),
+    ];
+
+//$firstCarWash = FirstCarWash::buildWash('FirstCarWash');
+//$secondCarWash = SecondCarWash::buildWash('SecondCarWash');
+//$thirdCarWash = ThirdCarWash::buildWash('ThirdCarWash');
 
 $outputArray = [
-    $firstCarWash->carWash(),
-    $secondCarWash->carWash(),
-    $thirdCarWash->carWash(),
+    $initArray[0]->carWash(),
+    $initArray[1]->carWash(),
+    $initArray[2]->carWash(),
 ];
 
 print_r($outputArray);
