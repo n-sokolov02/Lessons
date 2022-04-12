@@ -12,28 +12,28 @@ abstract class FactoryWash
 
 class FirstCarWash extends FactoryWash
 {
-    public function carWash()
+    public function carWash(): string
     {
         // TODO: Implement carWash() method.
-        echo __CLASS__ . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
 class SecondCarWash extends FactoryWash
 {
-    public function carWash()
+    public function carWash(): string
     {
         // TODO: Implement carWash() method.
-        echo __CLASS__ . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
 class ThirdCarWash extends FactoryWash
 {
-    public function carWash()
+    public function carWash(): string
     {
         // TODO: Implement carWash() method.
-        echo __CLASS__ . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
@@ -41,6 +41,10 @@ $firstCarWash = FirstCarWash::buildWash('FirstCarWash');
 $secondCarWash = SecondCarWash::buildWash('SecondCarWash');
 $thirdCarWash = ThirdCarWash::buildWash('ThirdCarWash');
 
-$firstCarWash->carWash();
-$secondCarWash->carWash();
-$thirdCarWash->carWash();
+$outputArray = [
+    $firstCarWash->carWash(),
+    $secondCarWash->carWash(),
+    $thirdCarWash->carWash(),
+];
+
+print_r($outputArray);

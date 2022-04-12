@@ -37,18 +37,18 @@ class Singleton
     }
 }
 
-function serviceCode()
+function getSingletonInstances()
 {
     $object_1 = Singleton::getInstance();
     $object_2 = Singleton::getInstance();
 
     if ($object_1 === $object_2)
     {
-        echo 'Singleton works, both variables contain the same instance';
+        echo 'Singleton works, both variables contain the same instances';
     } else
     {
         echo 'Singleton failed, variables contain different instances';
     }
 }
 
-serviceCode();
+getSingletonInstances();
