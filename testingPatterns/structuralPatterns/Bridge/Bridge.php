@@ -10,6 +10,7 @@ abstract class Service
     public Formatter $implementation;
     public function __construct($implementation)
     {
+        $this->implementation = $implementation;
     }
 
     abstract public function get(): string;
@@ -29,7 +30,7 @@ class PlainTextFormatter implements Formatter
     public function format(string $text): string
     {
         // TODO: Implement format() method.
-        return $text;
+        return $text . PHP_EOL;
     }
 }
 
@@ -38,12 +39,12 @@ class HelloWorldService extends Service
     public function get(): string
     {
         // TODO: Implement get() method.
-        return $this->implementation->format('Hello World');
+        return $this->implementation->format('Hello World') . PHP_EOL;
     }
 }
 
 $service = new HelloWorldService(new PlainTextFormatter());
-$service->get();
+echo $service->get();
 
 $service_1 = new HelloWorldService(new HTMLFormatter());
-$service_1->get();
+echo $service_1->get();
