@@ -1,6 +1,8 @@
 <?php
 
-trait getDecoratorOutput
+namespace testingPatterns\structuralPatterns\Decorator;
+
+trait getParentDecoratedConstructor
 {
     public function decorate(): string
     {
@@ -17,14 +19,13 @@ class ClassComponent implements Component
 {
     public function decorate(): string
     {
-        // TODO: Implement decorate() method.
-        return 'initProduct';
+        return 'CreatedProduct';
     }
 }
 
-class ClassDecorator implements Component
+class InitDecorator implements Component
 {
-    protected ?Component $component;
+    protected Component $component;
 
     public function __construct(Component $component)
     {
@@ -38,24 +39,24 @@ class ClassDecorator implements Component
     }
 }
 
-class Decorator1 extends ClassDecorator
+class Decorator1 extends InitDecorator
 {
-    use getDecoratorOutput;
+    use getParentDecoratedConstructor;
 }
 
-class Decorator2 extends ClassDecorator
+class Decorator2 extends InitDecorator
 {
-    use getDecoratorOutput;
+    use getParentDecoratedConstructor;
 }
 
-function getDecoratorsCode(Component $component)
+function getDecoratedProduct(Component $component)
 {
     echo 'RESULT: ' . $component->decorate() . PHP_EOL;
 }
 
 $initProduct = new ClassComponent();
-getDecoratorsCode($initProduct);
+getDecoratedProduct($initProduct);
 
-$decorator_1 = new Decorator1($initProduct);
-$decorator_2 = new Decorator2($decorator_1);
-getDecoratorsCode($decorator_2);
+$objectOfDecorator1 = new Decorator1($initProduct);
+$objectOfDecorator2 = new Decorator2($objectOfDecorator1);
+getDecoratedProduct($objectOfDecorator2);
