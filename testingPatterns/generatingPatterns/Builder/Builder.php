@@ -1,108 +1,105 @@
 <?php
 
-interface Builder
+namespace testingPatterns\generatingPatterns\Builder;
+
+interface BuilderProcess
 {
-    public function produceStepA(): void;
-    public function produceStepB(): void;
-    public function produceStepC(): void;
+    public function produceA();
+    public function produceB();
+    public function produceC();
 }
 
-class FirstBuilder implements Builder
+class Product
 {
-    private ?Product $product;
+    public array $parts = [];
+    public function getParts()
+    {
+        echo 'RESULT: ' . implode(', ', $this->parts) . PHP_EOL;
+    }
+}
+
+class Builder implements BuilderProcess
+{
+    public Product $product;
 
     public function __construct()
     {
         $this->resetProduct();
     }
 
-    /**
-     * @return void
-     */
-    public function resetProduct(): void
+    public function resetProduct()
     {
         $this->product = new Product();
     }
 
-    public function produceStepA(): void
+    public function produceA()
     {
-        // TODO: Implement produceStepA() method.
-        $this->product->parts[] = "PartA1";
+        // TODO: Implement produceA() method.
+        $this->product->parts[] = 'PART_A';
     }
 
-    public function produceStepB(): void
+    public function produceB()
     {
-        // TODO: Implement produceStepB() method.
-        $this->product->parts[] = "PartB1";
+        // TODO: Implement produceB() method.
+        $this->product->parts[] = 'PART_B';
     }
 
-    public function produceStepC(): void
+    public function produceC()
     {
-        // TODO: Implement produceStepC() method.
-        $this->product->parts[] = "PartC1";
+        // TODO: Implement produceC() method.
+        $this->product->parts[] = 'PART_C';
     }
 
-    public function getProduct(): Product
+    public function getFinalProduct(): Product
     {
         $result = $this->product;
         $this->resetProduct();
-
         return $result;
-    }
-}
-
-class Product
-{
-    public array $parts = [];
-    public function listParts(): void
-    {
-        echo "Product parts: " . implode(', ', $this->parts) . PHP_EOL . PHP_EOL;
     }
 }
 
 class Director
 {
-    /**
-     * @var FirstBuilder|null
-     */
-    private ?FirstBuilder $builder;
+    public Builder $builder;
 
-    public function setBuilder(Builder $builder): void
+    public function setBuilder(Builder $builder)
     {
         $this->builder = $builder;
     }
 
-    public function buildMinimalViableProduct(): void
+    public function getMinProduct()
     {
-        $this->builder->produceStepA();
+        $this->builder->produceA();
     }
 
-    public function buildFullFeatureProduct(): void
+    public function getMixedProduct()
     {
-        $this->builder->produceStepA();
-        $this->builder->produceStepB();
-        $this->builder->produceStepC();
+        $this->builder->produceB();
+        $this->builder->produceC();
+    }
+
+    public function getMaxProduct()
+    {
+        $this->builder->produceA();
+        $this->builder->produceB();
+        $this->builder->produceC();
     }
 }
 
-function clientCode (Director $director)
+function buildProduct(Director $director)
 {
-    $builder = new FirstBuilder();
-    $director->setBuilder($builder);
+    $theBuilder = new Builder();
+    $director->setBuilder($theBuilder);
 
-    echo "Standard basic product: " . PHP_EOL;
-    $director->buildMinimalViableProduct();
-    $builder->getProduct()->listParts();
+    $director->getMinProduct();
+    $theBuilder->getFinalProduct()->getParts();
 
-    echo "Standard full feature product: " . PHP_EOL;
-    $director->buildFullFeatureProduct();
-    $builder->getProduct()->listParts();
+    $director->getMixedProduct();
+    $theBuilder->getFinalProduct()->getParts();
 
-    echo "Custom product: " . PHP_EOL;
-    $builder->produceStepA();
-    $builder->produceStepC();
-    $builder->getProduct()->listParts();
+    $director->getMaxProduct();
+    $theBuilder->getFinalProduct()->getParts();
 }
 
 $director = new Director();
-clientCode($director);
+buildProduct($director);
