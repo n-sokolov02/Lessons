@@ -2,3 +2,5 @@ composer.json
 composer.lock
 vendor
 .idea
+.idea/learning-classes.iml
+.idea/php.xml
