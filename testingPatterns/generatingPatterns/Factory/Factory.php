@@ -1,46 +1,55 @@
 <?php
 
+namespace DesignPatters\Creational\Factory;
+
 abstract class Factory
 {
-    public static function buildEngine($car)
+    abstract public function build();
+
+    public static function buildCar($car)
     {
         return new $car;
     }
-
-    abstract public function build();
 }
 
-class FastCar extends Factory
+class FirstBuilder extends Factory
 {
-    public function build()
-    {
-        // TODO: Implement buildEngine() method.
-        echo 'FastCar' . PHP_EOL;
-    }
-}
-
-class BigCar extends Factory
-{
-    public function build()
+    public function build(): string
     {
         // TODO: Implement build() method.
-        echo 'BigCar' . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-class CheapCar extends Factory
+class SecondBuilder extends Factory
 {
-    public function build()
+    public function build(): string
     {
         // TODO: Implement build() method.
-        echo 'CheapCar' . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-$lowPrice = Factory::buildEngine('CheapCar');
-$mediumPrice = Factory::buildEngine('BigCar');
-$highPrice = Factory::buildEngine('FastCar');
+class ThirdBuilder extends Factory
+{
+    public function build(): string
+    {
+        // TODO: Implement build() method.
+        return __CLASS__ . PHP_EOL;
+    }
+}
 
-$lowPrice->build();
-$mediumPrice->build();
-$highPrice->build();
+$builder =
+    [
+        FirstBuilder::buildCar('FirstBuilder'),
+        SecondBuilder::buildCar('SecondBuilder'),
+        ThirdBuilder::buildCar('ThirdBuilder'),
+    ];
+
+$result = [
+    $builder[0]->build(),
+    $builder[1]->build(),
+    $builder[2]->build(),
+];
+
+var_dump($result);
