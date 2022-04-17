@@ -1,6 +1,5 @@
 <?php
 
-
 class Prototype
 {
     public $primitive;
@@ -25,7 +24,7 @@ class ComponentWithBackReference
     }
 }
 
-function clientCode()
+function clientCode(): void
 {
     $p1 = new Prototype();
     $p1->primitive = 245;
@@ -34,27 +33,27 @@ function clientCode()
 
     $p2 = clone $p1;
     if ($p1->primitive === $p2->primitive) {
-        echo "Primitive field values have been carried over to a clone. Yay!\n";
+        echo "Primitive field values have been cloned.\n";
     } else {
-        echo "Primitive field values have not been copied. Booo!\n";
+        echo "Primitive field values have not been cloned.\n";
     }
 
     if ($p1->component === $p2->component) {
-        echo "Simple component has not been cloned. Booo!\n";
+        echo "Simple component has not been cloned.\n";
     } else {
-        echo "Simple component has been cloned. Yay!\n";
+        echo "Simple component has been cloned.\n";
     }
 
     if ($p1->circularReference === $p2->circularReference) {
-        echo "Component with back reference has not been cloned. Booo!\n";
+        echo "Component with back reference has not been cloned.\n";
     } else {
-        echo "Component with back reference has been cloned. Yay!\n";
+        echo "Component with back reference has been cloned.\n";
     }
 
     if ($p1->circularReference->prototype === $p2->circularReference->prototype) {
-        echo "Component with back reference is linked to original object. Booo!\n";
+        echo "Component with back reference is linked to original object.\n";
     } else {
-        echo "Component with back reference is linked to the clone. Yay!\n";
+        echo "Component with back reference is linked to the clone.\n";
     }
 }
 
