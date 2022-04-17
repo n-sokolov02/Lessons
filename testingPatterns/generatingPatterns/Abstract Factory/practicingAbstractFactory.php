@@ -1,7 +1,5 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
-
 interface PracticeAbstractFactory
 {
     public function practiceCreateProductA(): PracticeAbstractProductA;
@@ -24,7 +22,7 @@ class PracticeConcreteFactory1 implements PracticeAbstractFactory
     /**
      * @return PracticeAbstractProductA
      */
-    #[Pure] public function practiceCreateProductA(): PracticeAbstractProductA
+    public function practiceCreateProductA(): PracticeAbstractProductA
     {
         // TODO: Implement practiceCreateProductA() method.
         return new PracticeConcreteProductA();
@@ -33,7 +31,7 @@ class PracticeConcreteFactory1 implements PracticeAbstractFactory
     /**
      * @return PracticeAbstractProductB
      */
-    #[Pure] public function practiceCreateProductB(): PracticeAbstractProductB
+    public function practiceCreateProductB(): PracticeAbstractProductB
     {
         // TODO: Implement practiceCreateProductB() method.
         return new PracticeConcreteProductB();
@@ -42,13 +40,13 @@ class PracticeConcreteFactory1 implements PracticeAbstractFactory
 
 class PracticeConcreteFactory2 implements PracticeAbstractFactory
 {
-    #[Pure] public function practiceCreateProductA(): PracticeConcreteProductA2
+    public function practiceCreateProductA(): PracticeConcreteProductA2
     {
         // TODO: Implement practiceCreateProductA() method.
         return new PracticeConcreteProductA2();
     }
 
-    #[Pure] public function practiceCreateProductB(): PracticeConcreteProductB2
+    public function practiceCreateProductB(): PracticeConcreteProductB2
     {
         // TODO: Implement practiceCreateProductB() method.
         return new PracticeConcreteProductB2();

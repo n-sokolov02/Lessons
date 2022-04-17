@@ -1,6 +1,6 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
+namespace testingPatterns\generatingPatterns\AbstractFactory;
 
 interface AbstractFactory
 {
@@ -10,122 +10,103 @@ interface AbstractFactory
 
 interface AbstractProductA
 {
-    public function usefulFunctionA(): string;
+    public function operation1A(): string;
 }
 
 interface AbstractProductB
 {
-    public function usefulFunctionB(): string;
-    public function anotherUsefulFunctionB(AbstractProductA $collaborator): string;
+    public function operation1B(): string;
+    public function operation2B(AbstractProductA $joinProduct);
 }
 
-class ConcreteFactory1 implements AbstractFactory
+class Factory1 implements AbstractFactory
 {
-    /**
-     * @return AbstractProductA
-     */
-    #[Pure] public function createProductA(): AbstractProductA
+    public function createProductA(): AbstractProductA
     {
         // TODO: Implement createProductA() method.
-        return new ConcreteProductA;
+        return new ProductAFactory1();
     }
 
-    /**
-     * @return AbstractProductB
-     */
-    #[Pure] public function createProductB(): AbstractProductB
+    public function createProductB(): AbstractProductB
     {
         // TODO: Implement createProductB() method.
-        return new ConcreteProductB;
+        return new ProductBFactory1();
     }
 }
 
-class ConcreteFactory2 implements AbstractFactory
+class Factory2 implements AbstractFactory
 {
-    /**
-     * @return AbstractProductA
-     */
-    #[Pure] public function createProductA(): AbstractProductA
+    public function createProductA(): ProductAFactory2
     {
         // TODO: Implement createProductA() method.
-        return new ConcreteProductA2;
+        return new ProductAFactory2();
     }
 
-    /**
-     * @return AbstractProductB
-     */
-    #[Pure] public function createProductB(): AbstractProductB
+    public function createProductB(): ProductBFactory2
     {
         // TODO: Implement createProductB() method.
-        return new ConcreteProductB2;
+        return new ProductBFactory2();
     }
 }
 
-class ConcreteProductA implements AbstractProductA
+class ProductAFactory1 implements AbstractProductA
 {
-    public function usefulFunctionA(): string
+    public function operation1A(): string
     {
-        // TODO: Implement usefulFunctionA() method.
-        return "The result of the product A1.";
+        // TODO: Implement operation1A() method.
+        return "The result of the producing Product A Factory 1";
     }
 }
 
-class ConcreteProductA2 implements AbstractProductA
+class ProductBFactory1 implements AbstractProductB
 {
-    public function usefulFunctionA(): string
+    public function operation1B(): string
     {
-        // TODO: Implement usefulFunctionA() method.
-        return "The result of the product A2.";
+        // TODO: Implement operation1B() method.
+        return "The result of the producing Product B Factory 1";
+    }
+
+    public function operation2B(AbstractProductA $joinProduct): string
+    {
+        // TODO: Implement operation2B() method.
+        $result = $joinProduct->operation1A();
+        return "The result of the joining Product A " . $result . PHP_EOL;
     }
 }
 
-class ConcreteProductB implements AbstractProductB
+class ProductAFactory2 implements AbstractProductA
 {
-    public function usefulFunctionB(): string
+    public function operation1A(): string
     {
-        // TODO: Implement usefulFunctionB() method.
-        return "The result of the product B1.";
-    }
-
-    public function anotherUsefulFunctionB(AbstractProductA $collaborator): string
-    {
-        $result = $collaborator->usefulFunctionA();
-
-        // TODO: Implement anotherUsefulFunctionB() method.
-        return "The result of the B1 collaborating with the ($result)";
+        // TODO: Implement operation1A() method.
+        return "The result of the Product A Factory 2";
     }
 }
 
-class ConcreteProductB2 implements AbstractProductB
+class ProductBFactory2 implements AbstractProductB
 {
-    public function usefulFunctionB(): string
+    public function operation1B(): string
     {
-        // TODO: Implement usefulFunctionB() method.
-        return "The result of the product B2.";
+        // TODO: Implement operation1B() method.
+        return "The result of the Product B Factory 2";
     }
 
-    public function anotherUsefulFunctionB(AbstractProductA $collaborator): string
+    public function operation2B(AbstractProductA $joinProduct): string
     {
-        // TODO: Implement anotherUsefulFunctionB() method.
-        $result = $collaborator->usefulFunctionA();
-
-        return "The result of the B2 collaborating with ($result)";
+        // TODO: Implement operation2B() method.
+        $result = $joinProduct->operation1A();
+        return "The result of the producing Product B2 with" . $result;
     }
 }
 
-function clientCode(AbstractFactory $factory)
+function getFactory(AbstractFactory $abstractFactory)
 {
-    $productA = $factory->createProductA();
-    $productB = $factory->createProductB();
+    $practiceProductA = $abstractFactory->createProductA();
+    $practiceProductB = $abstractFactory->createProductB();
 
-    echo $productB->usefulFunctionB() . PHP_EOL;
-    echo $productB->anotherUsefulFunctionB($productA) . PHP_EOL;
+    $practiceProductB->operation1B();
+    $practiceProductB->operation2B($practiceProductA);
 }
 
-echo "Client: Testing client code with the first factory type " . PHP_EOL;
-clientCode(new ConcreteFactory1());
-
-echo PHP_EOL;
-
-echo "Client: Testing the same client code with the second factory type" . PHP_EOL;
-clientCode(new ConcreteFactory2());
+getFactory(new Factory1());
+getFactory(new Factory2());
