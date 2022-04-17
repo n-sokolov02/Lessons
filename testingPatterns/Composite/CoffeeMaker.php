@@ -1,77 +1,86 @@
 <?php
 
-namespace testingPatterns\Composite;
+namespace testingPatterns\CompositePattern;
 
-class CoffeeMaker
+interface CarMaker
+{
+    public function get(): string;
+}
+
+class WheelsMaker implements CarMaker
 {
     public function get(): string
     {
-        return 'coffee';
+        // TODO: Implement get() method.
+        return __CLASS__;
     }
 }
 
-class CreamMaker
+class GlassesMaker implements CarMaker
 {
     public function get(): string
     {
-        return 'cream';
+        // TODO: Implement get() method.
+        return __CLASS__;
     }
 }
 
-class Plumbing
+class CasualEngineMaker implements CarMaker
 {
     public function get(): string
     {
-        return 'water';
+        // TODO: Implement get() method.
+        return __CLASS__;
     }
 }
 
-class IceMaker
+class ElectricEngineMaker implements CarMaker
 {
-    public string $water;
+    public string $replace;
 
     public function __construct()
     {
-        $plumbing = new Plumbing;
-        $this->water = $plumbing->get();
+        $cls = new CasualEngineMaker();
+        $this->replace = $cls->get();
     }
 
-    public function freezer()
+    public function change(): string
     {
-        return str_replace('water', 'ice', $this->water);
+        return str_replace('CasualEngineMaker', 'ElectricEngineMaker', $this->replace);
     }
 
-    public function get()
+    public function get(): string
     {
-        return $this->freezer();
+        // TODO: Implement get() method.
+        return $this->change();
     }
 }
 
-class CoffeeMachine
+class CarFactory
 {
-    protected array $units = [];
+    public array $units = [];
 
     public function add($component)
     {
         $this->units[] = $component;
     }
 
-    public function getCoffee(): string
+    public function getCar(): string
     {
-        $ingredients = [];
+        $steps = [];
 
         foreach ($this->units as $component)
         {
-            $ingredients[] = $component->get();
+            $steps[] = $component->get();
         }
 
-        return implode(' + ', $ingredients);
+        return implode(' + ', $steps);
     }
 }
 
-$machine = new CoffeeMachine();
-$machine->add(new CoffeeMaker());
-$machine->add(new CreamMaker());
-$machine->add(new IceMaker());
+$result = new CarFactory();
+$result->add(new ElectricEngineMaker());
+$result->add(new WheelsMaker());
+$result->add(new GlassesMaker());
 
-echo $machine->getCoffee();
+echo $result->getCar();

@@ -64,7 +64,7 @@ class OrderProcessing
         $this->SMSNotifier = $SMSNotifier;
     }
 
-    public function getNewOrder()
+    public function getNewOrder(): void
     {
         /* here will be some kind of logic */
         $this->text->getLogMessage('Table has been updated.');
