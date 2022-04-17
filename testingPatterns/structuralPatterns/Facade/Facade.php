@@ -36,7 +36,6 @@ class Subsystem1
     public function operationN(): string
     {
         return "Subsystem1: Go!" . PHP_EOL;
-
     }
 }
 
