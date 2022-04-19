@@ -1,12 +1,21 @@
 <?php
 
-class Product
+namespace testingPatterns\creationalPatterns\Registry;
+
+use Exception;
+
+class Registry
 {
     public static array $data = [];
 
+    public static function set($key, $value): void
+    {
+        self::$data[$key] = $value;
+    }
+
     public static function get($key): void
     {
-        echo self::$data[$key];
+        echo self::$data[$key] . PHP_EOL;
     }
 
     /**
@@ -16,7 +25,7 @@ class Product
      */
     public static function remove($key): void
     {
-        if (array_key_exists($key, self::$data))
+        if(array_key_exists($key, self::$data))
         {
             unset(self::$data[$key]);
         } else
@@ -24,26 +33,9 @@ class Product
             throw new Exception('No element');
         }
     }
-
-    public static function set($key, $value): void
-    {
-        self::$data[$key] = $value;
-    }
 }
 
-Product::set('name', 'product');
-echo PHP_EOL;
-Product::get('name');
-echo PHP_EOL;
-
-$flag = readline();
-
-if ($flag = 1)
-{
-    Product::remove('name');
-}
-
-if (!(array_key_exists('name', Product::$data)))
-{
-    echo 'deleted. ' . PHP_EOL;
-}
+Registry::set('name', 'some-value');
+Registry::get('name') . PHP_EOL;
+Registry::remove('name');
+Registry::get('name');

@@ -4,58 +4,50 @@ declare(strict_types=1);
 
 namespace testingPatterns\creationalPatterns\staticFactory;
 
-use http\Exception\InvalidArgumentException;
+use Exception;
 
 interface Formatter
 {
-    public static function format(string $input): string;
+    public function format(): string;
 }
 
-final class StaticFactory
+class StaticFactory
 {
     /**
-     * @param string $type
+     * @param $input
      * @return Formatter
+     * @throws Exception
      */
-    public static function factory(string $type): Formatter
+    public static function chooseFormat($input): Formatter
     {
-        if ($type == 'number')
-        {
-            return new FormatNumber();
-        } elseif ($type == 'string')
+        if ($input = 'string')
         {
             return new FormatString();
+        } elseif ($input = 'html')
+        {
+            return new FormatHTML();
         }
 
-        throw new InvalidArgumentException('Unknown format given');
-    }
-}
-
-class FormatNumber implements Formatter
-{
-    /**
-     * @param string $input
-     * @return string
-     */
-    public static function format(string $input): string
-    {
-        // TODO: Implement format() method.
-        return number_format((int) $input);
+        throw new Exception('Unknown format given');
     }
 }
 
 class FormatString implements Formatter
 {
-    /**
-     * @param string $input
-     * @return string
-     */
-    public static function format(string $input): string
+    public function format(): string
     {
         // TODO: Implement format() method.
-        return $input;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-$factory = StaticFactory::factory('number');
-var_dump($factory);
+class FormatHTML implements Formatter
+{
+    public function format(): string
+    {
+        // TODO: Implement format() method.
+        return '<b>' . __CLASS__ . '</b>' . PHP_EOL;
+    }
+}
+
+echo StaticFactory::chooseFormat('string')->format();
