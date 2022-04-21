@@ -1,5 +1,7 @@
 <?php
 
+//better than simple furniture factory, more conditions and small differences with objects
+
 namespace testingPatterns\generatingPatterns\AbstractFactory;
 
 interface AbstractFactory

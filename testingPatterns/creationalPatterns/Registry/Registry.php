@@ -1,5 +1,7 @@
 <?php
 
+// Solve the global scope problem. Data can be retrieved by GET method, and added by SET method.
+
 namespace testingPatterns\creationalPatterns\Registry;
 
 use Exception;

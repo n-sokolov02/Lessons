@@ -1,5 +1,7 @@
 <?php
 
+// new different functions to the main object
+
 namespace testingPatterns\structuralPatterns\Decorator;
 
 trait getParentDecoratedConstructor

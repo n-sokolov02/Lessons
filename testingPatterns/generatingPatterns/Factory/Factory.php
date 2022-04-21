@@ -1,5 +1,7 @@
 <?php
 
+//creating an object or collection of objects (like furniture factory)
+
 namespace DesignPatters\Creational\Factory;
 
 abstract class Factory

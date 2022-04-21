@@ -1,5 +1,43 @@
 <?php
 
+//high level modules don't depend on the low level modules. Both of types of modules should depend on the abstractions
+
+//class Connect
+//{
+//    ...
+//}
+//
+//class DB
+//{
+//    private $con;
+//    public function __construct(Connect $connect)
+//    {
+//        $this->con = $connect;
+//    }
+//}
+// ^^^ this is a rigid connection of the classes
+
+//interface IConnect
+//{
+//    ...
+//}
+//
+//class Connect implements IConnect
+//{
+//    ...
+//}
+//
+//class DB
+//{
+//    private $con;
+//    public function __construct(IConnect $IConnect)
+//    {
+//        $this->con = $IConnect;
+//    }
+//}
+// ^^^ this is a good example of dep. injection, when class DB don't depend on the concrete realization of the class Connect, but depend on the interface IConnect.
+// ^^^ Now DB and Connect don't have direct connection.
+
 namespace DependencyInjectionForLearning;
 use Auryn\Injector;
 

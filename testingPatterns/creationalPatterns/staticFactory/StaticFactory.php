@@ -1,5 +1,7 @@
 <?php
 
+//same as Factory pattern, but another realization
+
 declare(strict_types=1);
 
 namespace testingPatterns\creationalPatterns\staticFactory;

@@ -1,5 +1,7 @@
 <?php
 
+//Bridge is used, when we have some big classes, which work separately.
+
 interface Formatter
 {
     public function format(string $text): string;
