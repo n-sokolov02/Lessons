@@ -46,10 +46,8 @@ class FlyweightFactory
      */
     public function getObj($key)
     {
-        if(!isset($this->objects[$key]))
-        {
-            switch($key)
-            {
+        if (!isset($this->objects[$key])) {
+            switch ($key) {
                 case 'A':
                     $this->objects[$key] = new A();
                     break;
@@ -68,7 +66,6 @@ class FlyweightFactory
 $factory = new FlyweightFactory();
 $keys = ['A', 'B', 'C'];
 
-foreach ($keys as $key)
-{
+foreach ($keys as $key) {
     echo $factory->getObj($key)->run();
 }

@@ -32,7 +32,7 @@ class Context
         $this->strategy = $strategy;
     }
 
-    public function execute(): void
+    public function run(): void
     {
         $this->strategy->execute();
     }
@@ -45,5 +45,5 @@ $strategies = [
 
 foreach ($strategies as $strategy)
 {
-    $strategy->execute();
+    $strategy->run();
 }
