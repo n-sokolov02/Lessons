@@ -1,38 +1,37 @@
 <?php
 
+namespace testingPatterns\generatingPatterns\Singleton\PracticingSingleton;
+
 class PracticingSingleton
 {
-    private static ?PracticingSingleton $instance = null;
+    private static array $practicingSingleton;
 
-    private function __construct()
+    public static function getInstance(): PracticingSingleton
     {
-        echo "Singleton" . PHP_EOL;
-    }
+        $cls = static::class;
 
-    private function __clone()
-    {
-    }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    public function __wakeup(): void
-    {
-        // TODO: Implement __wakeup() method.
-        throw new Exception("Singleton cannot be serialized");
-    }
-
-    /**
-     * @return PracticingSingleton
-     */
-    public static function practicingGetInstances(): PracticingSingleton {
-        if (!isset(self::$instance)) {
-            self::$instance = new static();
+        if (!isset(self::$practicingSingleton[$cls]))
+        {
+            self::$practicingSingleton[$cls] = new static();
         }
-        return self::$instance;
+
+        return self::$practicingSingleton[$cls];
     }
 }
 
-$object1 = PracticingSingleton::practicingGetInstances();
-$object2 = PracticingSingleton::practicingGetInstances();
+function isSingletonWork(): void
+{
+    $object_1 = PracticingSingleton::getInstance();
+    $object_2 = PracticingSingleton::getInstance();
+
+    if ($object_1 === $object_2)
+    {
+        echo 'Singleton works, both variables contain the same instance';
+    }
+    else
+    {
+        echo 'Singleton failed, variables contain different instances';
+    }
+}
+
+isSingletonWork();

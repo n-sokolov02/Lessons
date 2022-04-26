@@ -1,57 +1,67 @@
 <?php
 
-abstract class FactoryWash
+namespace testingPatterns\generatingPatterns\Factory\PracticingFactory;
+
+abstract class Factory
 {
-    public static function buildWash($washroom)
+    public static function getObject($object)
     {
-        return new $washroom;
+        return new $object;
     }
 
-    abstract public function carWash();
+    abstract public function buildObject(): string;
 }
 
-class FirstCarWash extends FactoryWash
+class Chair extends Factory
 {
-    public function carWash(): string
+    public function buildObject(): string
     {
-        // TODO: Implement carWash() method.
-        return __CLASS__ . PHP_EOL;
-    }
-}
-
-class SecondCarWash extends FactoryWash
-{
-    public function carWash(): string
-    {
-        // TODO: Implement carWash() method.
-        return __CLASS__ . PHP_EOL;
+        // TODO: Implement buildObject() method.
+        return 'CHAIR_OBJECT' . PHP_EOL;
     }
 }
 
-class ThirdCarWash extends FactoryWash
+class Table extends Factory
 {
-    public function carWash(): string
+    public function buildObject(): string
     {
-        // TODO: Implement carWash() method.
-        return __CLASS__ . PHP_EOL;
+        // TODO: Implement buildObject() method.
+        return 'TABLE_OBJECT' . PHP_EOL;
     }
 }
 
-$initArray =
-    [
-        FirstCarWash::buildWash('FirstCarWash'),
-        SecondCarWash::buildWash('SecondCarWash'),
-        ThirdCarWash::buildWash('ThirdCarWash'),
-    ];
+class Kitchen extends Factory
+{
+    public function buildObject(): string
+    {
+        // TODO: Implement buildObject() method.
+        return 'KITCHEN_OBJECT' . PHP_EOL;
+    }
+}
 
-//$firstCarWash = FirstCarWash::buildWash('FirstCarWash');
-//$secondCarWash = SecondCarWash::buildWash('SecondCarWash');
-//$thirdCarWash = ThirdCarWash::buildWash('ThirdCarWash');
+class Room extends Factory
+{
+    public function buildObject(): string
+    {
+        // TODO: Implement buildObject() method.
+        return 'ROOM_OBJECT' . PHP_EOL;
+    }
+}
 
-$outputArray = [
-    $initArray[0]->carWash(),
-    $initArray[1]->carWash(),
-    $initArray[2]->carWash(),
+function getFurnitureSteps($object): void
+{
+    $step = Factory::getObject($object);
+    echo $step->buildObject();
+}
+
+$furniture = [
+    new Chair,
+    new Table,
+    new Room,
+    new Kitchen,
 ];
 
-print_r($outputArray);
+foreach ($furniture as $output)
+{
+    getFurnitureSteps($output);
+}

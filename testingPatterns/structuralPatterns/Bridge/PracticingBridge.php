@@ -1,48 +1,54 @@
 <?php
 
-namespace testingPatterns\generatingPatterns\PracticingBridge;
+namespace testingPatterns\structuralPatterns\PracticingBridge;
 
-interface CarService
+interface Formatter
 {
-    public function format($text): string;
+    public function format(): string;
 }
 
-abstract class Service
+abstract class FormatService
 {
-    public CarService $carService;
-    public function __construct(CarService $carService)
+    protected Formatter $formatter;
+
+    public function __construct(Formatter $formatter)
     {
-        $this->carService = $carService;
+        $this->formatter = $formatter;
     }
 
-    abstract public function get(): string;
+    abstract public function getFormattedValue(): string;
 }
 
-class HTMLCarService implements CarService
+class HTMLFormat implements Formatter
 {
-    public function format($text): string
-    {
-        // TODO: Implement format() method.
-        return '<b>' . $text . '</b>' . PHP_EOL;
-    }
-}
-
-class TextCarService implements CarService
-{
-    public function format($text): string
+    public function format(): string
     {
         // TODO: Implement format() method.
-        return $text . PHP_EOL;
+        return '<b>Some string</b>' . PHP_EOL;
     }
 }
 
-class Bridge extends Service
+class StringFormat implements Formatter
 {
-    public function get(): string
+    public function format(): string
     {
-        return $this->carService->format('Bridge') . PHP_EOL;
+        // TODO: Implement format() method.
+        return 'Some string' . PHP_EOL;
     }
 }
 
-$bridge = new Bridge(new HTMLCarService());
-echo $bridge->get();
+class SomeStringFormat extends FormatService
+{
+    public function getFormattedValue(): string
+    {
+        // TODO: Implement getFormattedValue() method.
+        return $this->formatter->format();
+    }
+}
+
+
+$html = new SomeStringFormat(new HTMLFormat());
+echo $html->getFormattedValue();
+
+$string = new SomeStringFormat(new StringFormat());
+echo $string->getFormattedValue();

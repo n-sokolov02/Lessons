@@ -51,7 +51,7 @@ class Decorator2 extends InitDecorator
     use getParentDecoratedConstructor;
 }
 
-function getDecoratedProduct(Component $component)
+function getDecoratedProduct(Component $component): void
 {
     echo 'RESULT: ' . $component->decorate() . PHP_EOL;
 }
