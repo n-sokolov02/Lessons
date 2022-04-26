@@ -1,64 +1,49 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
+class Unit1
+{
+    public function run(): void
+    {
+        echo __CLASS__ . ' -> run()' . PHP_EOL;
+    }
+}
+
+class Unit2
+{
+    public function show(): void
+    {
+        echo __CLASS__ . ' -> show()' . PHP_EOL;
+    }
+}
+
+class Unit3
+{
+    public function out(): void
+    {
+        echo __CLASS__ . ' -> out()' . PHP_EOL;
+    }
+}
 
 class Facade
 {
-    protected ?Subsystem1 $subsystem1;
-    protected ?Subsystem2 $subsystem2;
+    protected Unit1 $unit1;
+    protected Unit2 $unit2;
+    protected Unit3 $unit3;
 
-    #[Pure] public function __construct(Subsystem1 $subsystem1 = null, Subsystem2 $subsystem2 = null)
+    public function __construct()
     {
-        $this->subsystem1 = $subsystem1 ?: new Subsystem1();
-        $this->subsystem2 = $subsystem2 ?: new Subsystem2();
+        $this->unit1 = new Unit1();
+        $this->unit2 = new Unit2();
+        $this->unit3 = new Unit3();
     }
 
-    #[Pure] public function facadeOperation(): string
+    public function execute(): void
     {
-        $result = "Facade initializes subsystems: ". PHP_EOL;
-        $result .= $this->subsystem1->operation1();
-        $result .= $this->subsystem2->operation1();
-        $result .= "Facade orders subsystems to perform the action: " . PHP_EOL;
-        $result .= $this->subsystem1->operationN();
-        $result .= $this->subsystem2->operationZ();
-
-        return $result;
+        $this->unit1->run();
+        $this->unit2->show();
+        $this->unit3->out();
     }
 }
 
-class Subsystem1
-{
-    public function operation1(): string
-    {
-        return "Subsystem1: Ready!" . PHP_EOL;
-    }
-
-    public function operationN(): string
-    {
-        return "Subsystem1: Go!" . PHP_EOL;
-    }
-}
-
-class Subsystem2
-{
-    public function operation1(): string
-    {
-        return "Subsystem2: Get Ready!" . PHP_EOL;
-    }
-
-    public function operationZ(): string
-    {
-        return "Subsystem2: Fire!" . PHP_EOL;
-    }
-}
-
-function facadeClientCode(Facade $facade)
-{
-    echo $facade->facadeOperation();
-}
-
-$subsystem1 = new Subsystem1();
-$subsystem2 = new Subsystem2();
-
-$facade = new Facade($subsystem1, $subsystem2);
-facadeClientCode($facade);
+$facade = new Facade();
+$facade->execute();
