@@ -2,22 +2,17 @@
 
 // Solve the global scope problem. Data can be retrieved by GET method, and added by SET method.
 
-namespace testingPatterns\creationalPatterns\Registry;
+namespace testingPatterns\creationalPatterns\RegistryPattern;
 
 use Exception;
 
-class Registry
+class RegistryPattern
 {
-    public static array $data = [];
+    private static array $components = [];
 
-    public static function set($key, $value): void
+    public static function set($key, $value)
     {
-        self::$data[$key] = $value;
-    }
-
-    public static function get($key): void
-    {
-        echo self::$data[$key] . PHP_EOL;
+        self::$components[$key] = $value;
     }
 
     /**
@@ -27,17 +22,35 @@ class Registry
      */
     public static function remove($key): void
     {
-        if(array_key_exists($key, self::$data))
+        if(isset(self::$components[$key]))
         {
-            unset(self::$data[$key]);
-        } else
+            unset(self::$components[$key]);
+        }
+        else
         {
             throw new Exception('No element');
         }
     }
+
+    /**
+     * @param $key
+     * @return void
+     * @throws Exception
+     */
+    public static function get($key): void
+    {
+        if(isset(self::$components[$key]))
+        {
+            echo self::$components[$key] . PHP_EOL;
+        }
+        else
+        {
+            throw new Exception('Element was deleted or not set');
+        }
+    }
 }
 
-Registry::set('name', 'some-value');
-Registry::get('name') . PHP_EOL;
-Registry::remove('name');
-Registry::get('name');
+RegistryPattern::set('company', 'PHY_PARTNERS');
+RegistryPattern::get('company');
+RegistryPattern::remove('company');
+RegistryPattern::get('company');

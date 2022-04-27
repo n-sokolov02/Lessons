@@ -5,6 +5,7 @@ namespace testingPatterns\Proxy;
 interface runOperation
 {
     public function operation1();
+
     public function operation2();
 }
 
@@ -12,7 +13,7 @@ class RealClass implements runOperation
 {
     public function operation1()
     {
-        echo 'RealClass operation 1' .PHP_EOL;
+        echo 'RealClass operation 1' . PHP_EOL;
     }
 
     public function operation2()

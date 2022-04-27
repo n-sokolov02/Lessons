@@ -4,29 +4,9 @@
 
 namespace testingPatterns\generatingPatterns\Singleton;
 
-use Exception;
-
 class Singleton
 {
     private static array $instances = [];
-
-    private function __construct()
-    {
-    }
-
-    private function __clone()
-    {
-    }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    public function __wakeup(): void
-    {
-        // TODO: Implement __wakeup() method.
-        throw new Exception('Cannot serialize Singleton');
-    }
 
     public static function getInstance(): Singleton
     {
@@ -34,14 +14,14 @@ class Singleton
 
         if (!isset(self::$instances[$cls]))
         {
-            self::$instances[$cls] = new static();
+            self::$instances[$cls] = new static;
         }
 
         return self::$instances[$cls];
     }
 }
 
-function isSingletonWorks(): void
+function getClientCode(): void
 {
     $object_1 = Singleton::getInstance();
     $object_2 = Singleton::getInstance();
@@ -56,4 +36,4 @@ function isSingletonWorks(): void
     }
 }
 
-isSingletonWorks();
+getClientCode();

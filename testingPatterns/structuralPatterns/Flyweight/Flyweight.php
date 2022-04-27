@@ -1,71 +1,77 @@
 <?php
 
-//Создает только 1 объект каждого класса, это позволяет оптимизировать расход памяти программы
+// Создает только 1 объект каждого класса, это позволяет оптимизировать расход памяти программы
 
 namespace testingPatterns\creationalPatterns\Flyweight;
 
-interface getNames
-{
-    public function run(): string;
-}
+use Exception;
+use testingPatterns\CompositePattern\ImplementComponent;
 
-class A implements getNames
+trait insertIntoClass
 {
-    public function run(): string
+    public function get(): string
     {
-        // TODO: Implement run() method.
-        return __CLASS__ . PHP_EOL;
+        return __CLASS__;
     }
+
 }
 
-class B implements getNames
+interface buildObject
 {
-    public function run(): string
-    {
-        // TODO: Implement run() method.
-        return __CLASS__ . PHP_EOL;
-    }
+    public function get();
 }
 
-class C implements getNames
+class A implements buildObject
 {
-    public function run(): string
-    {
-        // TODO: Implement run() method.
-        return __CLASS__ . PHP_EOL;
-    }
+    use insertIntoClass;
 }
 
-class FlyweightFactory
+class B implements buildObject
 {
-    private array $objects = [];
+    use insertIntoClass;
+}
+
+class C implements buildObject
+{
+    use insertIntoClass;
+}
+
+
+class FlyweightPattern
+{
+    private array $instances = [];
 
     /**
-     * @param $key
-     * @return void
+     * @param $type
+     * @return A|B|C
+     * @throws Exception
      */
-    public function getObj($key)
+    public function getInstances($type): A|B|C
     {
-        if (!isset($this->objects[$key])) {
-            switch ($key) {
-                case 'A':
-                    $this->objects[$key] = new A();
-                    break;
-                case 'B':
-                    $this->objects[$key] = new B();
-                    break;
-                case 'C':
-                    $this->objects[$key] = new C();
-            }
-        }
+        if (!isset($this->instances[$type]))
+        {
+            $this->instances[$type] = match ($type)
+            {
+                'A' => new A(),
+                'B' => new B(),
+                'C' => new C(),
+            };
 
-        return $this->objects[$key];
+            return $this->instances[$type];
+        }
+        else
+        {
+            throw new Exception('This element was already initialized.');
+        }
     }
 }
 
-$factory = new FlyweightFactory();
-$keys = ['A', 'B', 'C'];
+$object = new FlyweightPattern();
+$array = ['A', 'B'];
 
-foreach ($keys as $key) {
-    echo $factory->getObj($key)->run();
+foreach ($array as $type)
+{
+    $instances[] = $object->getInstances($type)->get();
 }
+
+echo implode(' + ', $instances);

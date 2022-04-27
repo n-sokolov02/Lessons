@@ -1,47 +1,60 @@
 <?php
 
-interface getComposite
+/*
+ * Основной смысл паттерна в том, чтобы позволить вначале создать коллекцию объектов классов, а после их выполнить скопом.
+ * Какое-то практическое применение Composite в PHP найти сложно, разве что для решения задач,
+ * когда требуется выполнить сразу много действий из разных классов.
+ */
+
+namespace testingPatterns\CompositePattern;
+
+trait getCompositeClass
 {
-    public function get();
-}
-
-class CompositeRegistry
-{
-    private array $classes;
-
-    public function addClass(getComposite $class): void
-    {
-        $this->classes[] = $class;
-    }
-
-    public function execute(): void
-    {
-        foreach ($this->classes as $class) {
-            $class->get();
-        }
-    }
-}
-
-class Composite1 implements getComposite
-{
-    public function get()
+    public function get(): void
     {
         // TODO: Implement get() method.
         echo __CLASS__ . PHP_EOL;
     }
 }
 
-class Composite2 implements getComposite
+interface ImplementComponent
 {
-    public function get()
+    public function get(): void;
+}
+
+class Composite1 implements ImplementComponent
+{
+    use getCompositeClass;
+}
+
+class Composite2 implements ImplementComponent
+{
+    use getCompositeClass;
+}
+
+class MainComposite
+{
+    public array $instances = [];
+
+    public function addInstance(ImplementComponent $implementComponent): void
     {
-        echo __CLASS__ . PHP_EOL;
+        $this->instances[] = $implementComponent;
+    }
+
+    public function run(): void
+    {
+        foreach ($this->instances as $instance)
+        {
+            $instance->get();
+        }
     }
 }
 
-$composite = new CompositeRegistry();
+$mainComposite = new MainComposite();
 
-$composite->addClass(new Composite1());
-$composite->addClass(new Composite2());
+$mainComposite->addInstance(new Composite1());
+$mainComposite->addInstance(new Composite2());
 
-$composite->execute();
+$mainComposite->run();
+
+

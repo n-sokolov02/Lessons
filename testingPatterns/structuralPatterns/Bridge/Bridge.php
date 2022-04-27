@@ -1,52 +1,56 @@
 <?php
 
-//Bridge is used, when we have some big classes, which work separately.
+/*
+ * Паттерн Bridge представляет собой возможность объединения двух разных интерфейсов так,
+ * чтобы каждый из них развивался раздельно.
+ */
 
-interface Formatter
+namespace testingPatterns\BridgePattern;
+
+interface Bridge
 {
-    public function format(string $text): string;
+    public function format($system): string;
 }
 
 abstract class Service
 {
-    public Formatter $implementation;
-    public function __construct($implementation)
+    public Bridge $bridge;
+
+    public function __construct($bridge)
     {
-        $this->implementation = $implementation;
+        $this->bridge = $bridge;
     }
 
-    abstract public function get(): string;
+    abstract public function get();
 }
 
-class HTMLFormatter implements Formatter
+class Android implements Bridge
 {
-    public function format(string $text): string
+    public function format($system): string
     {
-        // TODO: Implement format() method.
-        return sprintf('<p>%s</p>', $text);
-    }
-}
-
-class PlainTextFormatter implements Formatter
-{
-    public function format(string $text): string
-    {
-        // TODO: Implement format() method.
-        return $text . PHP_EOL;
+        return 'ANDROID: ' . $system . PHP_EOL;
     }
 }
 
-class HelloWorldService extends Service
+class IOS implements Bridge
 {
-    public function get(): string
+    public function format($system): string
+    {
+        return 'IOS: ' . $system . PHP_EOL;
+    }
+}
+
+class SystemService extends Service
+{
+    public function get()
     {
         // TODO: Implement get() method.
-        return $this->implementation->format('Hello World') . PHP_EOL;
+        echo $this->bridge->format('New system has been initialized.') . PHP_EOL;
     }
 }
 
-$service = new HelloWorldService(new PlainTextFormatter());
-echo $service->get();
+$initSystemIOS = new SystemService(new IOS());
+$initSystemIOS->get();
 
-$service_1 = new HelloWorldService(new HTMLFormatter());
-echo $service_1->get();
+$initSystemAndroid = new SystemService(new Android());
+$initSystemAndroid->get();

@@ -18,17 +18,17 @@ interface BuilderProcess
 
 class Product
 {
-    public array $data = [];
+    public array $parts = [];
 
     public function getParts(): string
     {
-        return 'RESULT: ' . implode(' + ', $this->data) . PHP_EOL;
+        return implode(' + ', $this->parts);
     }
 }
 
 class Builder implements BuilderProcess
 {
-    public Product $product;
+    protected Product $product;
 
     public function __construct()
     {
@@ -43,50 +43,50 @@ class Builder implements BuilderProcess
     public function produceStepA()
     {
         // TODO: Implement produceStepA() method.
-        $this->product->data[] = 'STEP_A';
+        $this->product->parts[] = 'PART_A';
     }
 
     public function produceStepB()
     {
         // TODO: Implement produceStepB() method.
-        $this->product->data[] = 'STEP_B';
+        $this->product->parts[] = 'PART_B';
     }
 
     public function produceStepC()
     {
         // TODO: Implement produceStepC() method.
-        $this->product->data[] = 'STEP_C';
+        $this->product->parts[] = 'PART_C';
     }
 
     public function getResultProduct(): string
     {
         $result = $this->product->getParts();
         $this->resetProduct();
-        return $result;
+        return $result . PHP_EOL;
     }
 }
 
 class Director
 {
-    public Builder $builder;
+    private Builder $builder;
 
-    public function setBuilder(BuilderProcess $builderProcess)
+    public function setBuilder(BuilderProcess $builderProcess): void
     {
         $this->builder = $builderProcess;
     }
 
-    public function buildMinProduct()
+    public function buildMinVariance(): void
     {
         $this->builder->produceStepA();
     }
 
-    public function buildMixedProduct()
+    public function buildMixedVariance(): void
     {
         $this->builder->produceStepA();
         $this->builder->produceStepB();
     }
 
-    public function buildMaxProduct()
+    public function buildMaxVariance(): void
     {
         $this->builder->produceStepA();
         $this->builder->produceStepB();
@@ -94,20 +94,20 @@ class Director
     }
 }
 
-function getProduct(Director $director)
+function getBuildedProduct(Director $director): void
 {
     $theBuilder = new Builder();
     $director->setBuilder($theBuilder);
 
-    $director->buildMinProduct();
+    $director->buildMinVariance();
     echo $theBuilder->getResultProduct();
 
-    $director->buildMixedProduct();
+    $director->buildMixedVariance();
     echo $theBuilder->getResultProduct();
 
-    $director->buildMaxProduct();
+    $director->buildMaxVariance();
     echo $theBuilder->getResultProduct();
 }
 
 $director = new Director();
-getProduct($director);
+getBuildedProduct($director);
