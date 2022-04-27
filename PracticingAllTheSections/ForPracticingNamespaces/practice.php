@@ -1,6 +1,6 @@
 <?php
 
-require '../practicingNamespaces.php';
+require '../PracticingNamespaces.php';
 use practicingNamespaces\OOP\Product;
 
 class Job extends Product

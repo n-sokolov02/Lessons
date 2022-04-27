@@ -40,6 +40,7 @@
 //
 //$choose = Factory::getChoose();
 
+namespace PracticingAllTheSections\PracticingAbstractClasses;
 
 abstract class a
 {
