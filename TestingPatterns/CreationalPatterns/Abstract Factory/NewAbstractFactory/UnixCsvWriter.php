@@ -2,11 +2,11 @@
 
 namespace DesignPatters\Creational\AbstractFactory;
 
-class WinCsvWriter implements CsvWriter
+class UnixCsvWriter implements CsvWriter
 {
     public function write(array $line): string
     {
         // TODO: Implement write() method.
-        return join(',' , $line) . PHP_EOL;
+        return UnixCsvWriter . phpjoin(',', $line);
     }
 }

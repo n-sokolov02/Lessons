@@ -22,7 +22,7 @@ class Product
 
     public function getParts(): string
     {
-        return implode(' + ', $this->list) . PHP_EOL;
+        return Builder . phpimplode(' + ', $this->list);
     }
 }
 
