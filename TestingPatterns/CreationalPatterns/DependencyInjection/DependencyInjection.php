@@ -39,6 +39,7 @@
 // ^^^ Now DB and Connect don't have direct connection.
 
 namespace DependencyInjectionForLearning;
+/*
 use Auryn\Injector;
 
 require '../../vendor/autoload.php';
@@ -104,7 +105,6 @@ class OrderProcessing
 
     public function getNewOrder(): void
     {
-        /* here will be some kind of logic */
         $this->text->getLogMessage('Table has been updated.');
         $this->SMSNotifier->send('The message was sent.' . PHP_EOL);
         $this->repositories->makeOrder();
@@ -113,3 +113,67 @@ class OrderProcessing
 
 $injection = new Injector();
 $injection->make(OrderProcessing::class)->getNewOrder();
+*/
+
+trait OutputTheNameOfClass
+{
+    public function getComponent(): string
+    {
+        return __CLASS__;
+    }
+}
+
+interface InitComponents
+{
+    public function getComponent();
+}
+
+class SMS implements InitComponents
+{
+    use OutputTheNameOfClass;
+}
+
+class Call implements InitComponents
+{
+    use OutputTheNameOfClass;
+}
+
+class MMS implements InitComponents
+{
+    use OutputTheNameOfClass;
+}
+
+class System
+{
+    private InitComponents $components;
+    private static array $commits = [];
+
+    public function __construct(InitComponents $components)
+    {
+        $this->components = $components;
+    }
+
+    public function addComponent(): void
+    {
+        self::$commits[] = $this->components->getComponent();
+    }
+
+    public static function getResultSystem(): void
+    {
+        echo implode(' + ', self::$commits);
+    }
+}
+
+$steps = [
+    new System(new SMS),
+    new System(new Call),
+    new System(new MMS),
+];
+
+foreach ($steps as $step)
+{
+    $step->addComponent();
+}
+
+System::getResultSystem();
+

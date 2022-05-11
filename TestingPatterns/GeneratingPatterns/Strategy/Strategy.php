@@ -1,49 +1,47 @@
 <?php
 
-interface Strategy
+// Суть паттерна: Выделяет какие-то алгоритмы и использует их в базовом классе
+
+interface StrategyProcess
 {
-    public function execute();
+    public function getProduct();
 }
 
-class Strategy1 implements Strategy
+class Strategy1 implements StrategyProcess
 {
-    public function execute()
+    public function getProduct()
     {
-        // TODO: Implement execute() method.
-        echo 'STRATEGY_1' . PHP_EOL;
+        // TODO: Implement getProduct() method.
+        echo 'Updating the product according to STRATEGY_1..' . PHP_EOL;
     }
 }
 
-class Strategy2 implements Strategy
+class Strategy2 implements StrategyProcess
 {
-    public function execute()
+    public function getProduct()
     {
-        // TODO: Implement execute() method.
-        echo 'STRATEGY_2' . PHP_EOL;
+        // TODO: Implement getProduct() method.
+        echo 'Updating the product according to STRATEGY_2..' . PHP_EOL;
     }
 }
 
-class Context
+class BaseClass
 {
-    private Strategy $strategy;
+    private StrategyProcess $process;
 
-    public function __construct(Strategy $strategy)
+    public function __construct(StrategyProcess $strategyProcess)
     {
-        $this->strategy = $strategy;
+        $this->process = $strategyProcess;
     }
 
     public function run(): void
     {
-        $this->strategy->execute();
+        $this->process->getProduct();
     }
 }
 
-$strategies = [
-    new Context(new Strategy1()),
-    new Context(new Strategy2()),
-];
+$strategy = new BaseClass(new Strategy1());
+$strategy->run();
 
-foreach ($strategies as $strategy)
-{
-    $strategy->run();
-}
+$strategy = new BaseClass(new Strategy2());
+$strategy->run();

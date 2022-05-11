@@ -1,47 +1,43 @@
 <?php
 
+// Суть паттерна: Полностью скрыть реализацию реального класса. Заменяет обращения к реальному классу через посредника
+
 namespace testingPatterns\Proxy;
 
-interface runOperation
+class Real
 {
-    public function operation1();
-
-    public function operation2();
-}
-
-class RealClass implements runOperation
-{
-    public function operation1()
+    public function method1(): void
     {
-        echo 'RealClass operation 1' . PHP_EOL;
+        echo 'METHOD_1' . PHP_EOL;
     }
 
-    public function operation2()
+    public function method2(): void
     {
-        echo 'RealClass operation 2' . PHP_EOL;
+        echo 'METHOD_2' . PHP_EOL;
     }
 }
 
-class ProxyClass
+class Proxy
 {
-    protected RealClass $class;
+    public Real $real;
 
     public function __construct()
     {
-        $this->class = new RealClass();
+        $this->real = new Real();
     }
 
-    public function runOperation1(): void
+    public function proxyMethod1(): void
     {
-        $this->class->operation1();
+        $this->real->method1();
     }
 
-    public function runOperation2(): void
+    public function proxyMethod2(): void
     {
-        $this->class->operation2();
+        $this->real->method2();
     }
 }
 
-$proxy = new ProxyClass();
-$proxy->runOperation1();
-$proxy->runOperation2();
+$proxy = new Proxy();
+$proxy->proxyMethod1();
+$proxy->proxyMethod2();
+

@@ -1,9 +1,13 @@
 <?php
 
-class MyName
+// Цепочка методов при вызове. return $this - возвращаем объект текущего класса
+
+namespace TestingPatterns\FluentInterface;
+
+class FullName
 {
-    private string $firstName = '';
-    private string $lastName = '';
+    private string $firstName;
+    private string $lastName;
 
     public function __construct()
     {
@@ -28,5 +32,5 @@ class MyName
     }
 }
 
-$fullName = (new MyName())->setFirstName('John')->setLastName('Pierce')->getResult();
-echo $fullName;
+$object = (new FullName())->setFirstName('John')->setLastName('Pierce')->getResult();
+echo $object;

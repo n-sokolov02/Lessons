@@ -1,122 +1,111 @@
 <?php
 
-interface PracticeAbstractFactory
+namespace testingPatterns\GeneratingPatterns\PracticingAbstractFactory;
+
+interface AbstractFactory
 {
-    public function practiceCreateProductA(): PracticeAbstractProductA;
-    public function practiceCreateProductB(): PracticeAbstractProductB;
+    public function createProductA(): AbstractProductA;
+    public function createProductB(): AbstractProductB;
 }
 
-interface PracticeAbstractProductA
+interface AbstractProductA
 {
-    public function practiceUsefulFunctionA(): string;
+    public function operation1A(): string;
 }
 
-interface PracticeAbstractProductB
+interface AbstractProductB
 {
-    public function practiceUsefulFunctionB(): string;
-    public function practiceAdditionalUsefulFunctionB(PracticeAbstractProductA $joinProduct): string;
+    public function operation1B(): string;
+    public function operation2B(AbstractProductA $joinOperation): string;
 }
 
-class PracticeConcreteFactory1 implements PracticeAbstractFactory
+class ProductAFactory1 implements AbstractProductA
 {
-    /**
-     * @return PracticeAbstractProductA
-     */
-    public function practiceCreateProductA(): PracticeAbstractProductA
+    public function operation1A(): string
     {
-        // TODO: Implement practiceCreateProductA() method.
-        return new PracticeConcreteProductA();
-    }
-
-    /**
-     * @return PracticeAbstractProductB
-     */
-    public function practiceCreateProductB(): PracticeAbstractProductB
-    {
-        // TODO: Implement practiceCreateProductB() method.
-        return new PracticeConcreteProductB();
+        // TODO: Implement operation1A() method.
+        return 'PRODUCT_A | FACTORY_1' . PHP_EOL;
     }
 }
 
-class PracticeConcreteFactory2 implements PracticeAbstractFactory
+class ProductBFactory1 implements AbstractProductB
 {
-    public function practiceCreateProductA(): PracticeConcreteProductA2
+    public function operation1B(): string
     {
-        // TODO: Implement practiceCreateProductA() method.
-        return new PracticeConcreteProductA2();
+        // TODO: Implement operation1B() method.
+        return 'PRODUCT_B | FACTORY_1' . PHP_EOL;
     }
 
-    public function practiceCreateProductB(): PracticeConcreteProductB2
+    public function operation2B(AbstractProductA $joinOperation): string
     {
-        // TODO: Implement practiceCreateProductB() method.
-        return new PracticeConcreteProductB2();
+        // TODO: Implement operation2B() method.
+        return 'PRODUCT_B | FACTORY_1 ' . $joinOperation->operation1A() . PHP_EOL;
     }
 }
 
-class PracticeConcreteProductA implements PracticeAbstractProductA
+class ProductAFactory2 implements AbstractProductA
 {
-    public function practiceUsefulFunctionA(): string
+    public function operation1A(): string
     {
-        // TODO: Implement practiceUsefulFunctionA() method.
-        return "The result of the standard product A.";
+        // TODO: Implement operation1A() method.
+        return 'PRODUCT_A | FACTORY_2' . PHP_EOL;
     }
 }
 
-class PracticeConcreteProductB implements PracticeAbstractProductB
+class ProductBFactory2 implements AbstractProductB
 {
-    public function practiceUsefulFunctionB(): string
+    public function operation1B(): string
     {
-        // TODO: Implement practiceUsefulFunctionB() method.
-        return "The result of the standard product B.";
+        // TODO: Implement operation1B() method.
+        return 'PRODUCT_B | FACTORY_2' . PHP_EOL;
     }
 
-    public function practiceAdditionalUsefulFunctionB(PracticeAbstractProductA $joinProduct): string
+    public function operation2B(AbstractProductA $joinOperation): string
     {
-        $result = $joinProduct->practiceUsefulFunctionA();
-
-        // TODO: Implement practiceAdditionalUsefulFunctionB() method.
-        return "The result of the product B with $result";
+        // TODO: Implement operation2B() method.
+        return 'PRODUCT_B | FACTORY_2 ' . $joinOperation->operation1A() . PHP_EOL;
     }
 }
 
-class PracticeConcreteProductA2 implements PracticeAbstractProductA
+class Factory1 implements AbstractFactory
 {
-    public function practiceUsefulFunctionA(): string
+    public function createProductA(): AbstractProductA
     {
-        // TODO: Implement practiceUsefulFunctionA() method.
-        return "The result of the standard product A2.";
+        // TODO: Implement createProductA() method.
+        return new ProductAFactory1;
+    }
+
+    public function createProductB(): AbstractProductB
+    {
+        // TODO: Implement createProductB() method.
+        return new ProductBFactory1;
     }
 }
 
-class PracticeConcreteProductB2 implements PracticeAbstractProductB
+class Factory2 implements AbstractFactory
 {
-    public function practiceUsefulFunctionB(): string
+    public function createProductA(): AbstractProductA
     {
-        // TODO: Implement practiceUsefulFunctionB() method.
-        return "The result of the standard product B2.";
+        // TODO: Implement createProductA() method.
+        return new ProductAFactory2();
     }
 
-    public function practiceAdditionalUsefulFunctionB(PracticeAbstractProductA $joinProduct): string
+    public function createProductB(): AbstractProductB
     {
-        $result = $joinProduct->practiceUsefulFunctionA();
-        // TODO: Implement practiceAdditionalUsefulFunctionB() method.
-        return "The result of the product B2 with $result.";
+        // TODO: Implement createProductB() method.
+        return new ProductBFactory2();
     }
 }
 
-function clientPracticeCode(PracticeAbstractFactory $factory)
+function getResultProduct(AbstractFactory $abstractFactory): void
 {
-    $practiceProductA = $factory->practiceCreateProductA();
-    $practiceProductB = $factory->practiceCreateProductB();
+    $product_A = $abstractFactory->createProductA();
+    $product_B = $abstractFactory->createProductB();
 
-    echo $practiceProductB->practiceUsefulFunctionB();
-    echo $practiceProductB->practiceAdditionalUsefulFunctionB($practiceProductA);
+    echo $product_A->operation1A();
+    echo $product_B->operation1B();
+    echo $product_B->operation2B($product_A);
 }
 
-echo "Client: Products with 1 factory" . PHP_EOL;
-clientPracticeCode(new PracticeConcreteFactory1());
-
-echo PHP_EOL;
-
-echo "Client: Products with 2 factory" . PHP_EOL;
-clientPracticeCode(new PracticeConcreteFactory2());
+getResultProduct(new Factory1());
+getResultProduct(new Factory2());
