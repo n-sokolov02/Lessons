@@ -7,6 +7,14 @@
 
 namespace testingPatterns\BridgePattern;
 
+trait getSystem
+{
+    public function format($system): string
+    {
+        return __CLASS__ . ': ' . $system . PHP_EOL;
+    }
+}
+
 interface Bridge
 {
     public function format($system): string;
@@ -26,18 +34,12 @@ abstract class Service
 
 class Android implements Bridge
 {
-    public function format($system): string
-    {
-        return 'ANDROID: ' . $system . PHP_EOL;
-    }
+    use getSystem;
 }
 
 class IOS implements Bridge
 {
-    public function format($system): string
-    {
-        return 'IOS: ' . $system . PHP_EOL;
-    }
+    use getSystem;
 }
 
 class SystemService extends Service

@@ -5,7 +5,6 @@
 namespace testingPatterns\creationalPatterns\Flyweight;
 
 use Exception;
-use testingPatterns\CompositePattern\ImplementComponent;
 
 trait insertIntoClass
 {
@@ -13,7 +12,6 @@ trait insertIntoClass
     {
         return __CLASS__;
     }
-
 }
 
 interface buildObject
