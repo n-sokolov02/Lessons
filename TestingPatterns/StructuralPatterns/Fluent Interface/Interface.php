@@ -9,28 +9,23 @@ class FullName
     private string $firstName;
     private string $lastName;
 
-    public function __construct()
+    public function setFirstName($input): FullName
     {
+        $this->firstName = $input;
         return $this;
     }
 
-    public function setFirstName($firstName): static
+    public function setLastName($input): FullName
     {
-        $this->firstName = $firstName;
+        $this->lastName = $input;
         return $this;
     }
 
-    public function setLastName($lastName): static
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
-
-    public function getResult(): string
+    public function getFullName(): string
     {
         return $this->firstName . ' ' . $this->lastName . PHP_EOL;
     }
 }
 
-$object = (new FullName())->setFirstName('John')->setLastName('Pierce')->getResult();
-echo $object;
+$objectOfFullNameClass = (new FullName())->setFirstName('Daniil')->setLastName('Boyko')->getFullName();
+echo $objectOfFullNameClass;

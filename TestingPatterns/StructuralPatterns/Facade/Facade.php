@@ -10,33 +10,33 @@ namespace testingPatterns\Facade;
 
 class Unit1
 {
-    public function run(): void
+    public function getUnit1(): string
     {
-        echo __CLASS__ . ' -> run()' . PHP_EOL;
+        return __CLASS__;
     }
 }
 
 class Unit2
 {
-    public function show(): void
+    public function getUnit2(): string
     {
-        echo __CLASS__ . ' -> show()' . PHP_EOL;
+        return __CLASS__;
     }
 }
 
 class Unit3
 {
-    public function out(): void
+    public function getUnit3(): string
     {
-        echo __CLASS__ . ' -> out()' . PHP_EOL;
+        return __CLASS__;
     }
 }
 
 class Facade
 {
-    protected Unit1 $unit1;
-    protected Unit2 $unit2;
-    protected Unit3 $unit3;
+    private Unit1 $unit1;
+    private Unit2 $unit2;
+    private Unit3 $unit3;
 
     public function __construct()
     {
@@ -45,13 +45,15 @@ class Facade
         $this->unit3 = new Unit3();
     }
 
-    public function execute(): void
+    public function run(): array
     {
-        $this->unit1->run();
-        $this->unit2->show();
-        $this->unit3->out();
+        return [
+        $this->unit1->getUnit1(),
+        $this->unit2->getUnit2(),
+        $this->unit3->getUnit3(),
+        ];
     }
 }
 
 $facade = new Facade();
-$facade->execute();
+echo implode(' + ', $facade->run());

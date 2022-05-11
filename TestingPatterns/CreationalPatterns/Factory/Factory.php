@@ -11,33 +11,44 @@ abstract class Factory
         return new $car;
     }
 
-    abstract public function buildSaloon();
-}
-
-class FastCar extends Factory
-{
-    public function buildSaloon()
-    {
-        // TODO: Implement buildSaloon() method.
-        echo 'FAST_CAR' . PHP_EOL;
-    }
+    abstract public function buildEngine();
 }
 
 class SlowCar extends Factory
 {
-    public function buildSaloon()
+    public function buildEngine()
     {
-        // TODO: Implement buildSaloon() method.
+        // TODO: Implement buildEngine() method.
         echo 'SLOW_CAR' . PHP_EOL;
     }
 }
 
-$array = [
-            Factory::buildCar(new FastCar()),
-            Factory::buildCar(new SlowCar()),
-        ];
-
-foreach ($array as $element)
+class MediumCar extends Factory
 {
-    $element->buildSaloon();
+    public function buildEngine()
+    {
+        // TODO: Implement buildEngine() method.
+        echo 'MEDIUM_CAR' . PHP_EOL;
+    }
 }
+
+class FastCar extends Factory
+{
+    public function buildEngine()
+    {
+        // TODO: Implement buildEngine() method.
+        echo 'FAST_CAR' . PHP_EOL;
+    }
+}
+
+$instances = [
+        Factory::buildCar(new SlowCar()),
+        Factory::buildCar(new MediumCar()),
+        Factory::buildCar(new FastCar()),
+    ];
+
+foreach ($instances as $instance)
+{
+    $instance->buildEngine();
+}
+

@@ -14,9 +14,8 @@ class Singleton
     {
     }
 
-    private function __clone(): void
+    private function __clone()
     {
-        // TODO: Implement __clone() method.
     }
 
     /**
@@ -25,15 +24,13 @@ class Singleton
      */
     public function __wakeup()
     {
-        throw new Exception('Singleton cannot be serialized');
+        throw new Exception('Cannot serialize Singleton');
     }
 
-    /**
-     * @return Singleton
-     */
     public static function getInstance(): Singleton
     {
         $cls = static::class;
+
         if (!isset(self::$instances[$cls])) {
             self::$instances[$cls] = new static();
         }
@@ -49,8 +46,7 @@ function clientCode(): void
 
     if ($object_1 === $object_2) {
         echo 'Singleton works, both variables contain the same instance';
-    } else
-    {
+    } else {
         echo 'Singleton failed, variables contain different instances';
     }
 }

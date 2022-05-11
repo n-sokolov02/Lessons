@@ -6,50 +6,44 @@ declare(strict_types=1);
 
 namespace testingPatterns\creationalPatterns\staticFactory;
 
-use Exception;
-
 interface Formatter
 {
-    public function format(): string;
+    public function format(): void;
 }
 
 class StaticFactory
 {
-    /**
-     * @param $input
-     * @return Formatter
-     * @throws Exception
-     */
     public static function chooseFormat($input): Formatter
     {
-        if ($input = 'string')
-        {
-            return new FormatString();
-        } elseif ($input = 'html')
-        {
+        if ($input == 'FormatHTML') {
             return new FormatHTML();
+        } else {
+            return new FormatString();
         }
-
-        throw new Exception('Unknown format given');
-    }
-}
-
-class FormatString implements Formatter
-{
-    public function format(): string
-    {
-        // TODO: Implement format() method.
-        return __CLASS__ . PHP_EOL;
     }
 }
 
 class FormatHTML implements Formatter
 {
-    public function format(): string
+    public function format(): void
     {
         // TODO: Implement format() method.
-        return '<b>' . __CLASS__ . '</b>' . PHP_EOL;
+        echo '<b> Text </b>' . PHP_EOL;
     }
 }
 
-echo StaticFactory::chooseFormat('string')->format();
+class FormatString implements Formatter
+{
+    public function format(): void
+    {
+        // TODO: Implement format() method.
+        echo 'Text' . PHP_EOL;
+    }
+}
+
+$instances = ['FormatHTML', 'FormatString'];
+
+foreach ($instances as $instance)
+{
+    StaticFactory::chooseFormat($instance)->format();
+}

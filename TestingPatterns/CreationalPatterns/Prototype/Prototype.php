@@ -8,16 +8,31 @@
 
 namespace testingPatterns\Prototype;
 
-class MyClass
+class Prototype
 {
-    public function method(): void
+    public function __clone()
     {
-        echo 'MyClass method' . PHP_EOL;
+        echo 'Меня клонируют!' . PHP_EOL;
+    }
+
+    public function getObject(): void
+    {
+        echo 'Prototype Pattern' . PHP_EOL;
     }
 }
 
-$my = new MyClass();
-$object = clone $my;
-$object->method();
-unset($my);
-$object->method();
+function clientCode(): void
+{
+    $object_1 = new Prototype();
+    $object_1->getObject();
+
+    $object_2 = clone $object_1;
+    $object_2->getObject();
+
+    echo 'Deleting main object..' . PHP_EOL;
+    unset($object_1);
+    $object_2->getObject();
+    echo 'Still works!' . PHP_EOL;
+}
+
+clientCode();

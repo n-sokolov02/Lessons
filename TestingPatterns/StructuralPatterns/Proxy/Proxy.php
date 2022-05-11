@@ -19,7 +19,7 @@ class Real
 
 class Proxy
 {
-    public Real $real;
+    private Real $real;
 
     public function __construct()
     {

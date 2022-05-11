@@ -6,70 +6,70 @@ namespace testingPatterns\creationalPatterns\Flyweight;
 
 use Exception;
 
-trait insertIntoClass
+interface getClassName
+{
+    public function get(): string;
+}
+
+class A implements getClassName
 {
     public function get(): string
     {
-        return __CLASS__;
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-interface buildObject
+class B implements getClassName
 {
-    public function get();
+    public function get(): string
+    {
+        return __CLASS__ . PHP_EOL;
+    }
 }
 
-class A implements buildObject
+class C implements getClassName
 {
-    use insertIntoClass;
+    public function get(): string
+    {
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
+    }
 }
 
-class B implements buildObject
+class Flyweight
 {
-    use insertIntoClass;
-}
-
-class C implements buildObject
-{
-    use insertIntoClass;
-}
-
-
-class FlyweightPattern
-{
-    private array $instances = [];
+    private array $instances;
 
     /**
-     * @param $type
+     * @param $className
      * @return A|B|C
      * @throws Exception
      */
-    public function getInstances($type): A|B|C
+    public function getFlyweightName($className): A|B|C
     {
-        if (!isset($this->instances[$type]))
-        {
-            $this->instances[$type] = match ($type)
-            {
+        if (!isset($this->instances[$className])) {
+            $this->instances[$className] = match($className) {
                 'A' => new A(),
                 'B' => new B(),
                 'C' => new C(),
             };
 
-            return $this->instances[$type];
+            return $this->instances[$className];
         }
-        else
-        {
-            throw new Exception('This element was already initialized.');
+        else {
+            throw new Exception('Wrong classname');
         }
     }
 }
 
-$object = new FlyweightPattern();
-$array = ['A', 'B'];
+$instances = ['A', 'C'];
+$object = new Flyweight();
 
-foreach ($array as $type)
+foreach($instances as $instance)
 {
-    $instances[] = $object->getInstances($type)->get();
+    try {
+        echo $object->getFlyweightName($instance)->get();
+    } catch (Exception $e) {
+    }
 }
-
-echo implode(' + ', $instances);

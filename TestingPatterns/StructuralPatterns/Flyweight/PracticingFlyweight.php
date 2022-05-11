@@ -39,7 +39,7 @@ class PracticingFlyweight
      * @param $id
      * @return mixed|A|B|C
      */
-    public function getFlyweightObjects($id)
+    public function getFlyweightObjects($id): mixed
     {
         if (!isset($this->instances[$id]))
         {

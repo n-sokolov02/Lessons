@@ -7,22 +7,14 @@
 
 namespace testingPatterns\BridgePattern;
 
-trait getSystem
+interface BridgeInterface
 {
-    public function format($system): string
-    {
-        return __CLASS__ . ': ' . $system . PHP_EOL;
-    }
+    public function format(): string;
 }
 
-interface Bridge
+abstract class Bridge
 {
-    public function format($system): string;
-}
-
-abstract class Service
-{
-    public Bridge $bridge;
+    public BridgeInterface $bridge;
 
     public function __construct($bridge)
     {
@@ -32,27 +24,35 @@ abstract class Service
     abstract public function get();
 }
 
-class Android implements Bridge
+class IOS implements BridgeInterface
 {
-    use getSystem;
+    public function format(): string
+    {
+        // TODO: Implement format() method.
+        return __CLASS__ . ' system initialized' . PHP_EOL;
+    }
 }
 
-class IOS implements Bridge
+class Android implements BridgeInterface
 {
-    use getSystem;
+    public function format(): string
+    {
+        // TODO: Implement format() method.
+        return __CLASS__ . ' system initialized' . PHP_EOL;
+    }
 }
 
-class SystemService extends Service
+class InitBridge extends Bridge
 {
     public function get()
     {
         // TODO: Implement get() method.
-        echo $this->bridge->format('New system has been initialized.') . PHP_EOL;
+        echo $this->bridge->format();
     }
 }
 
-$initSystemIOS = new SystemService(new IOS());
-$initSystemIOS->get();
+$initIOSBridge = new InitBridge(new IOS());
+$initIOSBridge->get();
 
-$initSystemAndroid = new SystemService(new Android());
-$initSystemAndroid->get();
+$initAndroidBridge = new InitBridge(new Android());
+$initAndroidBridge->get();

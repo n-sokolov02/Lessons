@@ -2,46 +2,52 @@
 
 // Суть паттерна: Выделяет какие-то алгоритмы и использует их в базовом классе
 
-interface StrategyProcess
+namespace TestingPatterns\GeneratingPatterns\Strategy;
+
+interface Strategy
 {
-    public function getProduct();
+    public function makeStrategy();
 }
 
-class Strategy1 implements StrategyProcess
+class Strategy1 implements Strategy
 {
-    public function getProduct()
+    public function makeStrategy()
     {
-        // TODO: Implement getProduct() method.
-        echo 'Updating the product according to STRATEGY_1..' . PHP_EOL;
+        // TODO: Implement makeStrategy() method.
+        echo __CLASS__ . PHP_EOL;
     }
 }
 
-class Strategy2 implements StrategyProcess
+class Strategy2 implements Strategy
 {
-    public function getProduct()
+    public function makeStrategy()
     {
-        // TODO: Implement getProduct() method.
-        echo 'Updating the product according to STRATEGY_2..' . PHP_EOL;
+        // TODO: Implement makeStrategy() method.
+        echo __CLASS__ . PHP_EOL;
     }
 }
 
-class BaseClass
+class MainStrategy
 {
-    private StrategyProcess $process;
+    public Strategy $strategy;
 
-    public function __construct(StrategyProcess $strategyProcess)
+    public function __construct(Strategy $strategy)
     {
-        $this->process = $strategyProcess;
+        $this->strategy = $strategy;
     }
 
     public function run(): void
     {
-        $this->process->getProduct();
+        $this->strategy->makeStrategy();
     }
 }
 
-$strategy = new BaseClass(new Strategy1());
-$strategy->run();
+echo 'STRATEGY_1' . PHP_EOL;
+$main_1 = new MainStrategy(new Strategy1());
+$main_1->run();
 
-$strategy = new BaseClass(new Strategy2());
-$strategy->run();
+echo PHP_EOL;
+
+echo 'STRATEGY_2' . PHP_EOL;
+$main_2 = new MainStrategy(new Strategy2());
+$main_2->run();

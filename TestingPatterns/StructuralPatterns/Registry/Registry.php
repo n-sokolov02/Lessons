@@ -6,13 +6,13 @@ namespace testingPatterns\creationalPatterns\RegistryPattern;
 
 use Exception;
 
-class RegistryPattern
+class Registry
 {
-    private static array $components = [];
+    private static array $data = [];
 
-    public static function set($key, $value)
+    public static function add($key, $value): void
     {
-        self::$components[$key] = $value;
+        self::$data[$key] = $value;
     }
 
     /**
@@ -22,13 +22,10 @@ class RegistryPattern
      */
     public static function remove($key): void
     {
-        if(isset(self::$components[$key]))
-        {
-            unset(self::$components[$key]);
-        }
-        else
-        {
-            throw new Exception('No element');
+        if (isset(self::$data[$key])) {
+            unset(self::$data[$key]);
+        } else {
+            throw new Exception('This element was already deleted or not set');
         }
     }
 
@@ -39,18 +36,16 @@ class RegistryPattern
      */
     public static function get($key): void
     {
-        if(isset(self::$components[$key]))
-        {
-            echo self::$components[$key] . PHP_EOL;
-        }
-        else
-        {
-            throw new Exception('Element was deleted or not set');
+        if (isset(self::$data[$key])) {
+            echo self::$data[$key];
+        } else {
+            throw new Exception('Element was not set');
         }
     }
 }
 
-RegistryPattern::set('company', 'PHY_PARTNERS');
-RegistryPattern::get('company');
-RegistryPattern::remove('company');
-RegistryPattern::get('company');
+Registry::add(1, 'PHY_PARTNERS');
+Registry::get(1);
+Registry::remove(1);
+Registry::get(1);
+

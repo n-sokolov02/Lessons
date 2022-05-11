@@ -8,45 +8,48 @@
 
 namespace testingPatterns\CompositePattern;
 
-interface CompositePattern
+trait insertCompositeMethod
 {
-    public function get(): string;
-}
-
-class Composite1 implements CompositePattern
-{
-    public function get(): string
+    public function compose(): string
     {
-        // TODO: Implement get() method.
+        // TODO: Implement compose() method.
         return __CLASS__;
     }
 }
 
-class Composite2 implements CompositePattern
+interface CompositeMethod
 {
-    public function get(): string
-    {
-        // TODO: Implement get() method.
-        return __CLASS__;
-    }
+    public function compose(): string;
+}
+
+class Composite1 implements CompositeMethod
+{
+    use insertCompositeMethod;
+}
+
+class Composite2 implements CompositeMethod
+{
+    use insertCompositeMethod;
 }
 
 class MainComposite
 {
-    public array $instances = [];
+    private array $steps;
 
-    public function add(CompositePattern $compositePattern)
+    public function add(CompositeMethod $compositeMethod): void
     {
-        $this->instances[] = $compositePattern->get();
+        $this->steps[] = $compositeMethod->compose();
     }
 
-    public function getInstances(): string
+    public function get(): void
     {
-        return implode(' + ', $this->instances);
+        echo implode(' + ', $this->steps);
     }
 }
 
-$mainObject = new MainComposite();
-$mainObject->add(new Composite1);
-$mainObject->add(new Composite2);
-echo $mainObject->getInstances();
+$mainComposite = new MainComposite();
+
+$mainComposite->add(new Composite1);
+$mainComposite->add(new Composite2);
+
+$mainComposite->get();

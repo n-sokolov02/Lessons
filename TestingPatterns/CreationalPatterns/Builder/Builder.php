@@ -11,51 +11,51 @@ namespace testingPatterns\generatingPatterns\Builder;
 
 interface BuilderProcess
 {
-    public function produceStepA();
-    public function produceStepB();
-    public function produceStepC();
+    public function produceStepA(): void;
+    public function produceStepB(): void;
+    public function produceStepC(): void;
 }
 
 class Product
 {
-    public array $list = [];
+    public array $parts = [];
 
     public function getParts(): string
     {
-        return Builder . phpimplode(' + ', $this->list);
+        return implode(' + ', $this->parts) . PHP_EOL;
     }
 }
 
 class Builder implements BuilderProcess
 {
-    public Product $product;
+    private Product $product;
 
     public function __construct()
     {
         $this->resetProduct();
     }
 
-    public function resetProduct(): void
+    public function resetProduct()
     {
         $this->product = new Product();
     }
 
-    public function produceStepA()
+    public function produceStepA(): void
     {
         // TODO: Implement produceStepA() method.
-        $this->product->list[] = 'PART_A';
+        $this->product->parts[] = 'PART_A';
     }
 
-    public function produceStepB()
+    public function produceStepB(): void
     {
-        // TODO: Implement produceStepA() method.
-        $this->product->list[] = 'PART_B';
+        // TODO: Implement produceStepB() method.
+        $this->product->parts[] = 'PART_B';
     }
 
-    public function produceStepC()
+    public function produceStepC(): void
     {
-        // TODO: Implement produceStepA() method.
-        $this->product->list[] = 'PART_C';
+        // TODO: Implement produceStepC() method.
+        $this->product->parts[] = 'PART_C';
     }
 
     public function getResultProduct(): string
@@ -68,46 +68,50 @@ class Builder implements BuilderProcess
 
 class Director
 {
-    public BuilderProcess $builderProcess;
+    private BuilderProcess $builder;
 
-    public function setBuilder(): Builder
+    public function setBuilder(): void
     {
-        $this->builderProcess = new Builder();
-        return $this->builderProcess;
+        $this->builder = new Builder();
     }
 
-    public function buildMinVarianceProduct(): void
+    public function buildMinProduct(): Director
     {
-        $this->builderProcess->produceStepA();
+        $this->builder->produceStepA();
+        return $this;
     }
 
-    public function buildMixedVarianceProduct(): void
+    public function buildMixedProduct(): Director
     {
-        $this->builderProcess->produceStepB();
-        $this->builderProcess->produceStepC();
+        $this->builder->produceStepA();
+        $this->builder->produceStepC();
+        return $this;
     }
 
-    public function buildMaxVarianceProduct(): void
+    public function buildMaxProduct(): Director
     {
-        $this->builderProcess->produceStepA();
-        $this->builderProcess->produceStepB();
-        $this->builderProcess->produceStepC();
+        $this->builder->produceStepA();
+        $this->builder->produceStepB();
+        $this->builder->produceStepC();
+        return $this;
+    }
+
+    public function getFullOrder(): string
+    {
+        return $this->builder->getResultProduct();
     }
 }
 
-function setDirectorAndBuildProduct(Director $director): void
+function clientCode(Director $director): void
 {
-    $theBuilder = $director->setBuilder();
+    $director->setBuilder();
 
-    $director->buildMinVarianceProduct();
-    echo $theBuilder->getResultProduct();
+    echo $director->buildMinProduct()->getFullOrder();
 
-    $director->buildMixedVarianceProduct();
-    echo $theBuilder->getResultProduct();
+    echo $director->buildMixedProduct()->getFullOrder();
 
-    $director->buildMaxVarianceProduct();
-    echo $theBuilder->getResultProduct();
+    echo $director->buildMaxProduct()->getFullOrder();
 }
 
 $director = new Director();
-setDirectorAndBuildProduct($director);
+clientCode($director);
