@@ -5,13 +5,9 @@
 namespace testingPatterns\creationalPatterns\Flyweight;
 
 use Exception;
+use function testingPatterns\creationalPatterns\RegistryPattern\clientCodeWithCatchingExceptions;
 
-interface getClassName
-{
-    public function get(): string;
-}
-
-class A implements getClassName
+trait getClassName
 {
     public function get(): string
     {
@@ -20,56 +16,59 @@ class A implements getClassName
     }
 }
 
-class B implements getClassName
+interface FlyweightPattern
 {
-    public function get(): string
-    {
-        return __CLASS__ . PHP_EOL;
-    }
+    public function get();
 }
 
-class C implements getClassName
+class A implements FlyweightPattern
 {
-    public function get(): string
-    {
-        // TODO: Implement get() method.
-        return __CLASS__ . PHP_EOL;
-    }
+    use getClassName;
+}
+
+class B implements FlyweightPattern
+{
+    use getClassName;
+}
+
+class C implements FlyweightPattern
+{
+    use getClassName;
 }
 
 class Flyweight
 {
-    private array $instances;
-
     /**
-     * @param $className
+     * @param $instance
      * @return A|B|C
      * @throws Exception
      */
-    public function getFlyweightName($className): A|B|C
+    public function getFlyweightClasses($instance): A|B|C
     {
-        if (!isset($this->instances[$className])) {
-            $this->instances[$className] = match($className) {
-                'A' => new A(),
-                'B' => new B(),
-                'C' => new C(),
-            };
-
-            return $this->instances[$className];
-        }
-        else {
-            throw new Exception('Wrong classname');
+        if ($instance == 'A') {
+            return new A();
+        } elseif ($instance == 'B') {
+            return new B();
+        } else if ($instance == 'C') {
+            return new C();
+        } else {
+            throw new Exception('Undefined class name');
         }
     }
 }
 
-$instances = ['A', 'C'];
-$object = new Flyweight();
+$flyweightObject = new Flyweight();
+$instances = ['A', 'B', 'UNDEFINED'];
 
-foreach($instances as $instance)
+function clientCode($instances, $object)
+{
+    foreach ($instances as $instance)
 {
     try {
-        echo $object->getFlyweightName($instance)->get();
+        echo $object->getFlyweightClasses($instance)->get();
     } catch (Exception $e) {
     }
 }
+}
+
+clientCode($instances, $flyweightObject);

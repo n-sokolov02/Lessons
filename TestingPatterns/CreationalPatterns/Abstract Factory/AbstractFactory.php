@@ -4,12 +4,6 @@
 
 namespace testingPatterns\generatingPatterns\AbstractFactory;
 
-interface AbstractFactory
-{
-    public function createProductA(): AbstractProductA;
-    public function createProductB(): AbstractProductB;
-}
-
 interface AbstractProductA
 {
     public function operation1A(): string;
@@ -19,6 +13,12 @@ interface AbstractProductB
 {
     public function operation1B(): string;
     public function operation2B(AbstractProductA $joinProduct);
+}
+
+interface AbstractFactory
+{
+    public function createProductA(): AbstractProductA;
+    public function createProductB(): AbstractProductB;
 }
 
 class Factory1 implements AbstractFactory
@@ -101,7 +101,7 @@ class ProductBFactory2 implements AbstractProductB
     }
 }
 
-function getFactory(AbstractFactory $abstractFactory)
+function getFactory(AbstractFactory $abstractFactory): void
 {
     $practiceProductA = $abstractFactory->createProductA();
     $practiceProductB = $abstractFactory->createProductB();

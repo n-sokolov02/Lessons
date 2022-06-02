@@ -8,31 +8,30 @@
 
 namespace testingPatterns\Prototype;
 
+use Exception;
+
 class Prototype
 {
+    /**
+     * @return mixed
+     * @throws Exception
+     */
     public function __clone()
     {
-        echo 'Меня клонируют!' . PHP_EOL;
+        throw new Exception('Object was cloned');
     }
 
-    public function getObject(): void
+    public function get(): void
     {
-        echo 'Prototype Pattern' . PHP_EOL;
+        echo __CLASS__ . PHP_EOL;
     }
 }
 
-function clientCode(): void
-{
-    $object_1 = new Prototype();
-    $object_1->getObject();
+$object = new Prototype();
+$object->get();
 
-    $object_2 = clone $object_1;
-    $object_2->getObject();
+$prototype = clone $object;
+$prototype->get();
 
-    echo 'Deleting main object..' . PHP_EOL;
-    unset($object_1);
-    $object_2->getObject();
-    echo 'Still works!' . PHP_EOL;
-}
-
-clientCode();
+unset($object);
+$object->get();

@@ -24,13 +24,15 @@ class Singleton
      */
     public function __wakeup()
     {
-        throw new Exception('Cannot serialize Singleton');
+        throw new Exception('Cannot serialize singleton');
     }
 
+    /**
+     * @return Singleton
+     */
     public static function getInstance(): Singleton
     {
         $cls = static::class;
-
         if (!isset(self::$instances[$cls])) {
             self::$instances[$cls] = new static();
         }
@@ -39,7 +41,7 @@ class Singleton
     }
 }
 
-function clientCode(): void
+function clientCode()
 {
     $object_1 = Singleton::getInstance();
     $object_2 = Singleton::getInstance();

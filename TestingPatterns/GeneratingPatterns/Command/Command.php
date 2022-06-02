@@ -15,7 +15,7 @@ interface Command
  */
 class SimpleCommand implements Command
 {
-    private $payload;
+    private string $payload;
 
     public function __construct(string $payload)
     {
@@ -37,24 +37,24 @@ class ComplexCommand implements Command
     /**
      * @var Receiver
      */
-    private $receiver;
+    private Receiver $receiver;
 
     /**
      * Данные о контексте, необходимые для запуска методов получателя.
      */
-    private $a;
+    private string $someString;
 
-    private $b;
+    private string $anotherString;
 
     /**
      * Сложные команды могут принимать один или несколько объектов-получателей
      * вместе с любыми данными о контексте через конструктор.
      */
-    public function __construct(Receiver $receiver, string $a, string $b)
+    public function __construct(Receiver $receiver, string $someString, string $anotherString)
     {
         $this->receiver = $receiver;
-        $this->a = $a;
-        $this->b = $b;
+        $this->someString = $someString;
+        $this->anotherString = $anotherString;
     }
 
     /**
@@ -63,8 +63,8 @@ class ComplexCommand implements Command
     public function execute(): void
     {
         echo "ComplexCommand: Complex stuff should be done by a receiver object.\n";
-        $this->receiver->doSomething($this->a);
-        $this->receiver->doSomethingElse($this->b);
+        $this->receiver->doSomething($this->someString);
+        $this->receiver->doSomethingElse($this->anotherString);
     }
 }
 
@@ -75,14 +75,14 @@ class ComplexCommand implements Command
  */
 class Receiver
 {
-    public function doSomething(string $a): void
+    public function doSomething(string $someString): void
     {
-        echo "Receiver: Working on (" . $a . ".)\n";
+        echo "Receiver: Working on (" . $someString . ".)\n";
     }
 
-    public function doSomethingElse(string $b): void
+    public function doSomethingElse(string $anotherString): void
     {
-        echo "Receiver: Also working on (" . $b . ".)\n";
+        echo "Receiver: Also working on (" . $anotherString . ".)\n";
     }
 }
 
@@ -95,12 +95,12 @@ class Invoker
     /**
      * @var Command
      */
-    private $onStart;
+    private Command $onStart;
 
     /**
      * @var Command
      */
-    private $onFinish;
+    private Command $onFinish;
 
     /**
      * Инициализация команд.
@@ -122,16 +122,12 @@ class Invoker
     public function doSomethingImportant(): void
     {
         echo "Invoker: Does anybody want something done before I begin?\n";
-        if ($this->onStart instanceof Command) {
-            $this->onStart->execute();
-        }
+        $this->onStart->execute();
 
         echo "Invoker: ...doing something really important...\n";
 
         echo "Invoker: Does anybody want something done after I finish?\n";
-        if ($this->onFinish instanceof Command) {
-            $this->onFinish->execute();
-        }
+        $this->onFinish->execute();
     }
 }
 

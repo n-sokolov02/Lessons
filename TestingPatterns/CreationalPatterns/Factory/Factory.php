@@ -4,51 +4,46 @@
 
 namespace DesignPatters\Creational\Factory;
 
+trait getClass
+{
+    public function buildValue(): string
+    {
+        return __CLASS__ . PHP_EOL;
+    }
+}
+
 abstract class Factory
 {
-    public static function buildCar($car)
+    public static function buildObject($car)
     {
         return new $car;
     }
 
-    abstract public function buildEngine();
+    abstract public function buildValue();
 }
 
-class SlowCar extends Factory
+class IntFactory extends Factory
 {
-    public function buildEngine()
-    {
-        // TODO: Implement buildEngine() method.
-        echo 'SLOW_CAR' . PHP_EOL;
-    }
+    use getClass;
 }
 
-class MediumCar extends Factory
+class ArrayFactory extends Factory
 {
-    public function buildEngine()
-    {
-        // TODO: Implement buildEngine() method.
-        echo 'MEDIUM_CAR' . PHP_EOL;
-    }
+    use getClass;
 }
 
-class FastCar extends Factory
+class StringFactory extends Factory
 {
-    public function buildEngine()
-    {
-        // TODO: Implement buildEngine() method.
-        echo 'FAST_CAR' . PHP_EOL;
-    }
+    use getClass;
 }
 
-$instances = [
-        Factory::buildCar(new SlowCar()),
-        Factory::buildCar(new MediumCar()),
-        Factory::buildCar(new FastCar()),
-    ];
+$arrayOfFactories = [
+    Factory::buildObject(new IntFactory()),
+    Factory::buildObject(new ArrayFactory()),
+    Factory::buildObject(new StringFactory()),
+];
 
-foreach ($instances as $instance)
+foreach ($arrayOfFactories as $factory)
 {
-    $instance->buildEngine();
+    echo $factory->buildValue();
 }
-

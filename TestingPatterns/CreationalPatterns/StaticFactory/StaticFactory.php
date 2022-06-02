@@ -6,44 +6,57 @@ declare(strict_types=1);
 
 namespace testingPatterns\creationalPatterns\staticFactory;
 
-interface Formatter
+use Exception;
+
+interface ObjectModeler
 {
-    public function format(): void;
+    public function getClass(): void;
 }
 
-class StaticFactory
+class Factory
 {
-    public static function chooseFormat($input): Formatter
+    /**
+     * @param $name
+     * @return FormatHTML|FormatString
+     * @throws Exception
+     */
+    public static function chooseModel($name): FormatHTML|FormatString
     {
-        if ($input == 'FormatHTML') {
+        if ($name == 'FormatHTML') {
             return new FormatHTML();
-        } else {
+        } elseif ($name == 'FormatString') {
             return new FormatString();
+        } else {
+            throw new Exception('Invalid CLASS_NAME, choose another');
         }
     }
 }
 
-class FormatHTML implements Formatter
+class FormatHTML implements ObjectModeler
 {
-    public function format(): void
+    public function getClass(): void
     {
-        // TODO: Implement format() method.
-        echo '<b> Text </b>' . PHP_EOL;
+        // TODO: Implement getClass() method.
+        echo __CLASS__ . PHP_EOL;
     }
 }
 
-class FormatString implements Formatter
+class FormatString implements ObjectModeler
 {
-    public function format(): void
+    public function getClass(): void
     {
-        // TODO: Implement format() method.
-        echo 'Text' . PHP_EOL;
+        // TODO: Implement getClass() method.
+        echo __CLASS__ . PHP_EOL;
     }
 }
 
-$instances = ['FormatHTML', 'FormatString'];
+$arrayOfFactories = [
+    'FormatHTML',
+    'FormatString',
+    'InvalidFormatForTest',
+];
 
-foreach ($instances as $instance)
+foreach ($arrayOfFactories as $factory)
 {
-    StaticFactory::chooseFormat($instance)->format();
+    Factory::chooseModel($factory)->getClass();
 }

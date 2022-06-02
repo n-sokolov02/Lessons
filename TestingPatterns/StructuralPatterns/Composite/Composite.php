@@ -8,7 +8,12 @@
 
 namespace testingPatterns\CompositePattern;
 
-trait insertCompositeMethod
+interface ImplCompose
+{
+    public function compose(): string;
+}
+
+class Composite1 implements ImplCompose
 {
     public function compose(): string
     {
@@ -17,39 +22,33 @@ trait insertCompositeMethod
     }
 }
 
-interface CompositeMethod
+class Composite2 implements ImplCompose
 {
-    public function compose(): string;
-}
-
-class Composite1 implements CompositeMethod
-{
-    use insertCompositeMethod;
-}
-
-class Composite2 implements CompositeMethod
-{
-    use insertCompositeMethod;
+    public function compose(): string
+    {
+        // TODO: Implement compose() method.
+        return __CLASS__;
+    }
 }
 
 class MainComposite
 {
-    private array $steps;
+    private array $instances;
 
-    public function add(CompositeMethod $compositeMethod): void
+    public function add(ImplCompose $implCompose): void
     {
-        $this->steps[] = $compositeMethod->compose();
+        $this->instances[] = $implCompose->compose();
     }
 
-    public function get(): void
+    public function getArray(): void
     {
-        echo implode(' + ', $this->steps);
+        echo implode(' + ', $this->instances);
     }
 }
 
 $mainComposite = new MainComposite();
 
-$mainComposite->add(new Composite1);
-$mainComposite->add(new Composite2);
+$mainComposite->add(new Composite1());
+$mainComposite->add(new Composite2());
 
-$mainComposite->get();
+$mainComposite->getArray();

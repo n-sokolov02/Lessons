@@ -4,18 +4,18 @@
 
 namespace TestingPatterns\FluentInterface;
 
-class FullName
+class FluentInterface
 {
     private string $firstName;
     private string $lastName;
 
-    public function setFirstName($input): FullName
+    public function setFirstName($input): FluentInterface
     {
         $this->firstName = $input;
         return $this;
     }
 
-    public function setLastName($input): FullName
+    public function setLastName($input): FluentInterface
     {
         $this->lastName = $input;
         return $this;
@@ -27,5 +27,5 @@ class FullName
     }
 }
 
-$objectOfFullNameClass = (new FullName())->setFirstName('Daniil')->setLastName('Boyko')->getFullName();
-echo $objectOfFullNameClass;
+$fluentInterface = (new FluentInterface())->setFirstName('Daniil')->setLastName('Boyko')->getFullName();
+echo $fluentInterface;

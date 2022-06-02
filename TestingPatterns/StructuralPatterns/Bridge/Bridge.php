@@ -9,10 +9,10 @@ namespace testingPatterns\BridgePattern;
 
 interface BridgeInterface
 {
-    public function format(): string;
+    public function makeBridge(): string;
 }
 
-abstract class Bridge
+abstract class AbstractBridge
 {
     public BridgeInterface $bridge;
 
@@ -24,35 +24,35 @@ abstract class Bridge
     abstract public function get();
 }
 
-class IOS implements BridgeInterface
-{
-    public function format(): string
-    {
-        // TODO: Implement format() method.
-        return __CLASS__ . ' system initialized' . PHP_EOL;
-    }
-}
-
 class Android implements BridgeInterface
 {
-    public function format(): string
+    public function makeBridge(): string
     {
-        // TODO: Implement format() method.
-        return __CLASS__ . ' system initialized' . PHP_EOL;
+        // TODO: Implement makeBridge() method.
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-class InitBridge extends Bridge
+class IOS implements BridgeInterface
+{
+    public function makeBridge(): string
+    {
+        // TODO: Implement makeBridge() method.
+        return __CLASS__ . PHP_EOL;
+    }
+}
+
+class MainBridge extends AbstractBridge
 {
     public function get()
     {
         // TODO: Implement get() method.
-        echo $this->bridge->format();
+        echo $this->bridge->makeBridge();
     }
 }
 
-$initIOSBridge = new InitBridge(new IOS());
-$initIOSBridge->get();
+$androidSystem = new MainBridge(new Android());
+$androidSystem->get();
 
-$initAndroidBridge = new InitBridge(new Android());
-$initAndroidBridge->get();
+$IOSSystem = new MainBridge(new IOS());
+$IOSSystem->get();
