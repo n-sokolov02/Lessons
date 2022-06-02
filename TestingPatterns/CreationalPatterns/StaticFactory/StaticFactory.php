@@ -2,61 +2,48 @@
 
 //same as Factory pattern, but another realization
 
-declare(strict_types=1);
-
 namespace testingPatterns\creationalPatterns\staticFactory;
 
 use Exception;
 
-interface ObjectModeler
-{
-    public function getClass(): void;
-}
-
-class Factory
+class StaticFactory
 {
     /**
-     * @param $name
-     * @return FormatHTML|FormatString
+     * @param $input
+     * @return FirstFactory|SecondFactory
      * @throws Exception
      */
-    public static function chooseModel($name): FormatHTML|FormatString
+    public static function chooseFactory($input): FirstFactory|SecondFactory
     {
-        if ($name == 'FormatHTML') {
-            return new FormatHTML();
-        } elseif ($name == 'FormatString') {
-            return new FormatString();
+        if ($input == 'First') {
+            return new FirstFactory();
+        } elseif ($input == 'Second') {
+            return new SecondFactory();
         } else {
-            throw new Exception('Invalid CLASS_NAME, choose another');
+            throw new Exception('Unknown Factory. Choose another');
         }
     }
 }
 
-class FormatHTML implements ObjectModeler
+class FirstFactory
 {
-    public function getClass(): void
+    public function get(): string
     {
-        // TODO: Implement getClass() method.
-        echo __CLASS__ . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-class FormatString implements ObjectModeler
+class SecondFactory
 {
-    public function getClass(): void
+    public function get(): string
     {
-        // TODO: Implement getClass() method.
-        echo __CLASS__ . PHP_EOL;
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-$arrayOfFactories = [
-    'FormatHTML',
-    'FormatString',
-    'InvalidFormatForTest',
-];
-
-foreach ($arrayOfFactories as $factory)
+function clientCode(): void
 {
-    Factory::chooseModel($factory)->getClass();
+    echo StaticFactory::chooseFactory('First')->get();
 }
+
+clientCode();

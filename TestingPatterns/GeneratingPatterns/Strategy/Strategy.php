@@ -6,24 +6,24 @@ namespace TestingPatterns\GeneratingPatterns\Strategy;
 
 interface Strategy
 {
-    public function makeStrategy();
+    public function get(): string;
 }
 
 class Strategy1 implements Strategy
 {
-    public function makeStrategy()
+    public function get(): string
     {
-        // TODO: Implement makeStrategy() method.
-        echo __CLASS__ . PHP_EOL;
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
     }
 }
 
 class Strategy2 implements Strategy
 {
-    public function makeStrategy()
+    public function get(): string
     {
-        // TODO: Implement makeStrategy() method.
-        echo __CLASS__ . PHP_EOL;
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
     }
 }
 
@@ -36,18 +36,14 @@ class MainStrategy
         $this->strategy = $strategy;
     }
 
-    public function run(): void
+    public function makeStrategy(): void
     {
-        $this->strategy->makeStrategy();
+        echo $this->strategy->get();
     }
 }
 
-echo 'STRATEGY_1' . PHP_EOL;
-$main_1 = new MainStrategy(new Strategy1());
-$main_1->run();
+$mainStrategy = new MainStrategy(new Strategy1());
+$mainStrategy->makeStrategy();
 
-echo PHP_EOL;
-
-echo 'STRATEGY_2' . PHP_EOL;
-$main_2 = new MainStrategy(new Strategy2());
-$main_2->run();
+$mainStrategy = new MainStrategy(new Strategy2());
+$mainStrategy->makeStrategy();

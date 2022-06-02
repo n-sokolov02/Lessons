@@ -8,17 +8,11 @@
 
 namespace testingPatterns\Prototype;
 
-use Exception;
-
 class Prototype
 {
-    /**
-     * @return mixed
-     * @throws Exception
-     */
     public function __clone()
     {
-        throw new Exception('Object was cloned');
+        echo 'Was cloned.' . PHP_EOL;
     }
 
     public function get(): void
@@ -27,11 +21,9 @@ class Prototype
     }
 }
 
-$object = new Prototype();
-$object->get();
+$main = new Prototype();
+$main->get();
 
-$prototype = clone $object;
-$prototype->get();
-
-unset($object);
-$object->get();
+$another = clone $main;
+unset ($main);
+$another->get();

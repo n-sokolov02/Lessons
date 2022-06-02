@@ -7,6 +7,6 @@ class WinCsvWriter implements CsvWriter
     public function write(array $line): string
     {
         // TODO: Implement write() method.
-        return WinCsvWriter . phpjoin(',', $line);
+        return "WinCsvWriter" . join(',', $line);
     }
 }

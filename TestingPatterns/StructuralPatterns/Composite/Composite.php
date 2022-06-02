@@ -8,41 +8,41 @@
 
 namespace testingPatterns\CompositePattern;
 
-interface ImplCompose
+interface ImplementCompose
 {
-    public function compose(): string;
+    public function get(): string;
 }
 
-class Composite1 implements ImplCompose
+class Composite1 implements ImplementCompose
 {
-    public function compose(): string
+    public function get(): string
     {
-        // TODO: Implement compose() method.
+        // TODO: Implement get() method.
         return __CLASS__;
     }
 }
 
-class Composite2 implements ImplCompose
+class Composite2 implements ImplementCompose
 {
-    public function compose(): string
+    public function get(): string
     {
-        // TODO: Implement compose() method.
+        // TODO: Implement get() method.
         return __CLASS__;
     }
 }
 
 class MainComposite
 {
-    private array $instances;
+    private array $commits = [];
 
-    public function add(ImplCompose $implCompose): void
+    public function add(ImplementCompose $compose): void
     {
-        $this->instances[] = $implCompose->compose();
+        $this->commits[] = $compose->get();
     }
 
-    public function getArray(): void
+    public function getCommits(): void
     {
-        echo implode(' + ', $this->instances);
+        echo implode(' + ', $this->commits) . PHP_EOL;
     }
 }
 
@@ -51,4 +51,4 @@ $mainComposite = new MainComposite();
 $mainComposite->add(new Composite1());
 $mainComposite->add(new Composite2());
 
-$mainComposite->getArray();
+$mainComposite->getCommits();
