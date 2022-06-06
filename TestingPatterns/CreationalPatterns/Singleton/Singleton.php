@@ -27,28 +27,31 @@ class Singleton
         throw new Exception('Singleton cannot be serialized');
     }
 
+    /**
+     * @return Singleton
+     */
     public static function getInstance(): Singleton
     {
         $cls = static::class;
+
         if (!isset(self::$instances[$cls])) {
-            self::$instances[$cls] = new static;
+            self::$instances[$cls] = new static();
         }
 
         return self::$instances[$cls];
     }
 }
 
-
-function clientCode(): void
+function isSingletonWork(): void
 {
-    $firstObject = Singleton::getInstance();
-    $secondObject = Singleton::getInstance();
+    $object_1 = Singleton::getInstance();
+    $object_2 = Singleton::getInstance();
 
-    if ($firstObject === $secondObject) {
+    if ($object_1 === $object_2) {
         echo 'Singleton works, both variables contain the same instance';
     } else {
         echo 'Singleton failed, variables contain different instances';
     }
 }
 
-clientCode();
+isSingletonWork();

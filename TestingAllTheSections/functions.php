@@ -1,7 +1,7 @@
 <?php
 
 function load_model($class_name) {
-    $path_to_file = 'models/' . $class_name . '.php';
+    $path_to_file = 'models/' . $class_name . 'AbstractProductA.php';
 
     if (file_exists($path_to_file)) {
         require_once $path_to_file;
@@ -9,7 +9,7 @@ function load_model($class_name) {
 }
 
 function load_service($service_name) {
-    $path_to_file = 'services/' . $service_name . '.php';
+    $path_to_file = 'services/' . $service_name . 'AbstractProductA.php';
 
     if (file_exists($path_to_file)) {
         require $path_to_file;

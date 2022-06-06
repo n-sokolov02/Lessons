@@ -6,44 +6,37 @@ namespace testingPatterns\creationalPatterns\staticFactory;
 
 use Exception;
 
-class StaticFactory
+class MainFactory
 {
     /**
-     * @param $input
-     * @return FirstFactory|SecondFactory
+     * @param $instance
      * @throws Exception
      */
-    public static function chooseFactory($input): FirstFactory|SecondFactory
+    public static function chooseFactoryAndExecute($instance): void
     {
-        if ($input == 'First') {
-            return new FirstFactory();
-        } elseif ($input == 'Second') {
-            return new SecondFactory();
-        } else {
-            throw new Exception('Unknown Factory. Choose another');
-        }
+        echo $instance->getFactory();
     }
 }
 
-class FirstFactory
+class Factory1
 {
-    public function get(): string
+    public function getFactory(): string
     {
         return __CLASS__ . PHP_EOL;
     }
 }
 
-class SecondFactory
+class Factory2
 {
-    public function get(): string
+    public function getFactory(): string
     {
         return __CLASS__ . PHP_EOL;
     }
 }
 
-function clientCode(): void
+function getFactory(): void
 {
-    echo StaticFactory::chooseFactory('First')->get();
+    MainFactory::chooseFactoryAndExecute(new Factory1());
 }
 
-clientCode();
+getFactory();

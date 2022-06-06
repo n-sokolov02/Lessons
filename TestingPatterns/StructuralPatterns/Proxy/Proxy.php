@@ -1,25 +1,23 @@
 <?php
 
-// Суть паттерна: Полностью скрыть реализацию реального класса. Заменяет обращения к реальному классу через посредника
-
-namespace testingPatterns\Proxy;
+namespace TestingPatterns\StructuralPatterns\Proxy;
 
 class Real
 {
-    public function method1(): string
+    public function method1(): void
     {
-        return __METHOD__ . PHP_EOL;
+        echo __METHOD__ . PHP_EOL;
     }
 
-    public function method2(): string
+    public function method2(): void
     {
-        return __METHOD__ . PHP_EOL;
+        echo __METHOD__ . PHP_EOL;
     }
 }
 
 class Proxy
 {
-    public Real $real;
+    private Real $real;
 
     public function __construct()
     {
@@ -28,12 +26,12 @@ class Proxy
 
     public function proxyMethod1(): void
     {
-        echo $this->real->method1();
+        $this->real->method1();
     }
 
     public function proxyMethod2(): void
     {
-        echo $this->real->method2();
+        $this->real->method2();
     }
 }
 

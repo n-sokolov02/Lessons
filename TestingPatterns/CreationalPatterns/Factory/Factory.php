@@ -4,12 +4,17 @@
 
 namespace DesignPatters\Creational\Factory;
 
-interface buildCar
+abstract class Factory
 {
-    public function build(): string;
+    public static function buildObject($object)
+    {
+        return new $object;
+    }
+
+    abstract public function build(): string;
 }
 
-class FastCar extends Factory implements buildCar
+class FirstClass extends Factory
 {
     public function build(): string
     {
@@ -18,7 +23,7 @@ class FastCar extends Factory implements buildCar
     }
 }
 
-class SlowCar extends Factory implements buildCar
+class SecondClass extends Factory
 {
     public function build(): string
     {
@@ -27,23 +32,27 @@ class SlowCar extends Factory implements buildCar
     }
 }
 
-class Factory
+class ThirdClass extends Factory
 {
-    public static function chooseCar($input)
+    public function build(): string
     {
-        return new $input;
+        // TODO: Implement build() method.
+        return __CLASS__ . PHP_EOL;
     }
 }
 
-$fastCarObject = Factory::chooseCar(new FastCar());
-$slowCarObject = Factory::chooseCar(new SlowCar());
-
-$arrayOfFactories = [
-    $fastCarObject,
-    $slowCarObject,
-];
-
-foreach ($arrayOfFactories as $factory)
+function getClasses(): void
 {
-    echo $factory->build();
+    $array = [
+        Factory::buildObject(new FirstClass()),
+        Factory::buildObject(new SecondClass()),
+        Factory::buildObject(new ThirdClass()),
+    ];
+
+    foreach ($array as $element)
+    {
+        echo $element->build();
+    }
 }
+
+getClasses();

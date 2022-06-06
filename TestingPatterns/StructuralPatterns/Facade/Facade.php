@@ -1,35 +1,34 @@
 <?php
 
-/*
- * Задача фасада — скрыть сложную реализацию внутри какого-то класса.
- * То есть если есть 10 классов, у которых нужно выполнить кучу методов, то мы просто делаем один класс-фасад, который их и выполняет.
- * У нас же останется только один «пусковой» метод.
- */
+namespace TestingPatterns\StructuralPatterns\Facade;
 
-namespace testingPatterns\Facade;
-
-class Unit1
+trait GetUnitTrait
 {
-    public function methodUnit1(): string
+    public function get(): string
     {
+        // TODO: Implement get() method.
         return __CLASS__ . PHP_EOL;
     }
 }
 
-class Unit2
+interface FacadeInterface
 {
-    public function methodUnit2(): string
-    {
-        return __CLASS__ . PHP_EOL;
-    }
+    public function get(): string;
 }
 
-class Unit3
+class Unit1 implements FacadeInterface
 {
-    public function methodUnit3(): string
-    {
-        return __CLASS__ . PHP_EOL;
-    }
+    use GetUnitTrait;
+}
+
+class Unit2 implements FacadeInterface
+{
+    use GetUnitTrait;
+}
+
+class Unit3 implements FacadeInterface
+{
+    use GetUnitTrait;
 }
 
 class Facade
@@ -45,13 +44,14 @@ class Facade
         $this->unit3 = new Unit3();
     }
 
-    public function execute(): void
+    public function executeUnitMethods(): void
     {
-        echo $this->unit1->methodUnit1();
-        echo $this->unit2->methodUnit2();
-        echo $this->unit3->methodUnit3();
+        echo $this->unit1->get();
+        echo $this->unit2->get();
+        echo $this->unit3->get();
     }
 }
 
-$facadeObject = new Facade();
-$facadeObject->execute();
+$facade = new Facade();
+$facade->executeUnitMethods();
+

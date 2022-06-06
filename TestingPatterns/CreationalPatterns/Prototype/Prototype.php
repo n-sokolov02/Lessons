@@ -6,24 +6,28 @@
  * В этом случае вначале делается один объект, происходит его начальная «тяжелая инициализация», а после объект клонируется для использования под разные задачи.
 */
 
-namespace testingPatterns\Prototype;
+namespace TestingPatterns\CreationalPatterns\Prototype;
 
 class Prototype
 {
     public function __clone()
     {
-        echo 'Was cloned.' . PHP_EOL;
+        echo __CLASS__ . ' was cloned' . PHP_EOL;
     }
 
-    public function get(): void
+    public function getClass(): void
     {
-        echo __CLASS__ . PHP_EOL;
+        echo __METHOD__ . PHP_EOL;
     }
 }
 
-$main = new Prototype();
-$main->get();
+$prototype = new Prototype();
+$prototype->getClass();
 
-$another = clone $main;
-unset ($main);
-$another->get();
+$clonedObject = clone $prototype;
+$clonedObject->getClass();
+
+echo 'Unset $prototype' . PHP_EOL;
+unset($prototype);
+
+$clonedObject->getClass();

@@ -8,12 +8,12 @@
 
 namespace testingPatterns\CompositePattern;
 
-interface ImplementCompose
+interface CompositeInterface
 {
     public function get(): string;
 }
 
-class Composite1 implements ImplementCompose
+class A implements CompositeInterface
 {
     public function get(): string
     {
@@ -22,7 +22,7 @@ class Composite1 implements ImplementCompose
     }
 }
 
-class Composite2 implements ImplementCompose
+class B implements CompositeInterface
 {
     public function get(): string
     {
@@ -31,24 +31,39 @@ class Composite2 implements ImplementCompose
     }
 }
 
-class MainComposite
+class C implements CompositeInterface
 {
-    private array $commits = [];
-
-    public function add(ImplementCompose $compose): void
+    public function get(): string
     {
-        $this->commits[] = $compose->get();
-    }
-
-    public function getCommits(): void
-    {
-        echo implode(' + ', $this->commits) . PHP_EOL;
+        // TODO: Implement get() method.
+        return __CLASS__;
     }
 }
 
-$mainComposite = new MainComposite();
+class Composite
+{
+    public CompositeInterface $composite;
+    private array $instances = [];
 
-$mainComposite->add(new Composite1());
-$mainComposite->add(new Composite2());
+    public function add(CompositeInterface $composite): void
+    {
+        $this->instances[] = $composite->get();
+    }
 
-$mainComposite->getCommits();
+    public function getInstances(): void
+    {
+        echo implode(' + ', $this->instances);
+    }
+}
+
+function addInstancesAndOutputArray(): void
+{
+    $compositeObject = new Composite();
+
+    $compositeObject->add(new A());
+    $compositeObject->add(new B());
+    $compositeObject->add(new C());
+    $compositeObject->getInstances();
+}
+
+addInstancesAndOutputArray();

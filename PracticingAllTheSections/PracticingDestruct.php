@@ -15,7 +15,7 @@ class File
     //delete info about object after completing the script
     public function __destruct()
     {
-        if ($this->format = '.php') {
+        if ($this->format = 'AbstractProductA.php') {
             echo "Object was destructed.";
         }
     }
@@ -26,5 +26,5 @@ class File
     }
 }
 
-$object = new File('destruct', '.php');
+$object = new File('destruct', 'AbstractProductA.php');
 echo $object->echoFileAndFormat();

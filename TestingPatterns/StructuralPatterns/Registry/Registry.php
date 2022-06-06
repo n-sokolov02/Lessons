@@ -21,7 +21,21 @@ class Registry
         if (!isset(self::$data[$key])) {
             self::$data[$key] = $value;
         } else {
-            throw new Exception('Element was already built');
+            throw new Exception('This ID was already added to the array');
+        }
+    }
+
+    /**
+     * @param $key
+     * @return void
+     * @throws Exception
+     */
+    public static function get($key): void
+    {
+        if (isset(self::$data[$key])) {
+            echo self::$data[$key] . PHP_EOL;
+        } else {
+            throw new Exception('This element was removed or not set');
         }
     }
 
@@ -35,21 +49,7 @@ class Registry
         if (isset(self::$data[$key])) {
             unset(self::$data[$key]);
         } else {
-            throw new Exception('Element was already deleted or not added');
-        }
-    }
-
-    /**
-     * @param $key
-     * @return void
-     * @throws Exception
-     */
-    public static function get($key): void
-    {
-        if (isset(self::$data[$key])) {
-            echo self::$data[$key];
-        } else {
-            throw new Exception('Element is not set or = NULL');
+            throw new Exception('This element was already removed or not set');
         }
     }
 }
@@ -57,4 +57,10 @@ class Registry
 Registry::add(1, 'PHY_PARTNERS');
 Registry::get(1);
 Registry::remove(1);
-Registry::get(1);
+//Registry::get(1);
+
+try {
+    Registry::get(1);
+} catch (Exception $exception) {
+    echo 'FATAL ERROR: TRYING TO GET UNDEFINED ID';
+}

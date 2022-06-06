@@ -1,19 +1,20 @@
 <?php
 
-interface Adapter
+interface FacebookInterface
 {
-    public function post($msg): string;
+    public function postToWall($msg): void;
 }
 
-class Facebook
+class Facebook implements FacebookInterface
 {
-    public function postToWall($msg): string
+    public function postToWall($msg): void
     {
-        return 'POSTED MESSAGE: ' . $msg;
+        // TODO: Implement postToWall() method.
+        echo 'POSTED MESSAGE || ' . $msg . PHP_EOL;
     }
 }
 
-class FacebookAdapter implements Adapter
+class FacebookAdapter
 {
     private Facebook $facebook;
 
@@ -22,19 +23,18 @@ class FacebookAdapter implements Adapter
         $this->facebook = $facebook;
     }
 
-    public function post($msg): string
+    public function postMessage($msg): void
     {
-        // TODO: Implement post() method.
-        return $this->facebook->postToWall($msg);
+        $this->facebook->postToWall($msg);
     }
 }
 
-function getMessageFromUser(): string
+function getSomeMessageFromUser(): string
 {
-    return "1 2 3";
+    return 'DANIIL BOYKO: BLA BLA BLA';
 }
 
-$msg = getMessageFromUser();
+$message = getSomeMessageFromUser();
 
-$facebook = new FacebookAdapter(new Facebook());
-echo $facebook->post($msg);
+$facebookAdapter = new FacebookAdapter(new Facebook());
+$facebookAdapter->postMessage($message);

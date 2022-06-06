@@ -4,46 +4,43 @@
 
 namespace TestingPatterns\GeneratingPatterns\Strategy;
 
-interface Strategy
+trait GetOutputOfMakeStrategy
 {
-    public function get(): string;
-}
-
-class Strategy1 implements Strategy
-{
-    public function get(): string
+    public function makeStrategy(): string
     {
-        // TODO: Implement get() method.
         return __CLASS__ . PHP_EOL;
     }
 }
 
-class Strategy2 implements Strategy
+interface StrategyInterface
 {
-    public function get(): string
-    {
-        // TODO: Implement get() method.
-        return __CLASS__ . PHP_EOL;
-    }
+    public function makeStrategy(): string;
 }
 
-class MainStrategy
+class Strategy1 implements StrategyInterface
 {
-    public Strategy $strategy;
+    use GetOutputOfMakeStrategy;
+}
 
-    public function __construct(Strategy $strategy)
+class Strategy2 implements StrategyInterface
+{
+    use GetOutputOfMakeStrategy;
+}
+
+class BaseStrategy
+{
+    public StrategyInterface $strategy;
+
+    public function __construct(StrategyInterface $strategy)
     {
         $this->strategy = $strategy;
     }
 
-    public function makeStrategy(): void
+    public function chooseAndExecuteStrategy(): void
     {
-        echo $this->strategy->get();
+        echo $this->strategy->makeStrategy();
     }
 }
 
-$mainStrategy = new MainStrategy(new Strategy1());
-$mainStrategy->makeStrategy();
-
-$mainStrategy = new MainStrategy(new Strategy2());
-$mainStrategy->makeStrategy();
+$baseStrategy = new BaseStrategy(new Strategy2());
+$baseStrategy->chooseAndExecuteStrategy();

@@ -16,12 +16,12 @@ abstract class AbstractBridge
 {
     public BridgeInterface $bridge;
 
-    public function __construct($bridge)
+    public function __construct(BridgeInterface $bridge)
     {
         $this->bridge = $bridge;
     }
 
-    abstract public function get();
+    abstract public function getClass();
 }
 
 class Android implements BridgeInterface
@@ -29,7 +29,7 @@ class Android implements BridgeInterface
     public function makeBridge(): string
     {
         // TODO: Implement makeBridge() method.
-        return __CLASS__ . PHP_EOL;
+        return __CLASS__ . ': New system' . PHP_EOL;
     }
 }
 
@@ -38,21 +38,21 @@ class IOS implements BridgeInterface
     public function makeBridge(): string
     {
         // TODO: Implement makeBridge() method.
-        return __CLASS__ . PHP_EOL;
+        return __CLASS__ . ': New system' . PHP_EOL;
     }
 }
 
 class MainBridge extends AbstractBridge
 {
-    public function get()
+    public function getClass()
     {
-        // TODO: Implement get() method.
+        // TODO: Implement getClass() method.
         echo $this->bridge->makeBridge();
     }
 }
 
-$androidSystem = new MainBridge(new Android());
-$androidSystem->get();
+$mainBridge = new MainBridge(new Android());
+$mainBridge->getClass();
 
-$IOSSystem = new MainBridge(new IOS());
-$IOSSystem->get();
+$mainBridge = new MainBridge(new IOS);
+$mainBridge->getClass();

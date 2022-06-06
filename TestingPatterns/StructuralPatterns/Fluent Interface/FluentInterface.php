@@ -27,5 +27,5 @@ class FluentInterface
     }
 }
 
-$fluentInterface = (new FluentInterface())->setFirstName('Daniil')->setLastName('Boyko')->getFullName();
+$fluentInterface = (new FluentInterface())->setFirstName('DANIIL')->setLastName('BOYKO')->getFullName();
 echo $fluentInterface;

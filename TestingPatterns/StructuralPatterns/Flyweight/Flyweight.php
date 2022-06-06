@@ -5,9 +5,13 @@
 namespace testingPatterns\creationalPatterns\Flyweight;
 
 use Exception;
-use function testingPatterns\creationalPatterns\RegistryPattern\clientCodeWithCatchingExceptions;
 
-trait getClassName
+interface GetClassNameInterface
+{
+    public function get();
+}
+
+class A implements GetClassNameInterface
 {
     public function get(): string
     {
@@ -16,59 +20,58 @@ trait getClassName
     }
 }
 
-interface FlyweightPattern
+class B implements GetClassNameInterface
 {
-    public function get();
+    public function get(): string
+    {
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
+    }
 }
 
-class A implements FlyweightPattern
+class C implements GetClassNameInterface
 {
-    use getClassName;
-}
-
-class B implements FlyweightPattern
-{
-    use getClassName;
-}
-
-class C implements FlyweightPattern
-{
-    use getClassName;
+    public function get(): string
+    {
+        // TODO: Implement get() method.
+        return __CLASS__ . PHP_EOL;
+    }
 }
 
 class Flyweight
 {
+    private array $instances = [];
+
     /**
      * @param $instance
-     * @return A|B|C
+     * @return A|B|C|void
      * @throws Exception
      */
-    public function getFlyweightClasses($instance): A|B|C
+    public function getObjectsOfClasses($instance)
     {
-        if ($instance == 'A') {
-            return new A();
-        } elseif ($instance == 'B') {
-            return new B();
-        } else if ($instance == 'C') {
-            return new C();
-        } else {
-            throw new Exception('Undefined class name');
+        if (!isset($this->instances[$instance])) {
+            if ($instance == 'A') {
+                return new A();
+            } elseif ($instance == 'B') {
+                return new B();
+            } elseif ($instance == 'C') {
+                return new C();
+            } else {
+                throw new Exception('UNDEFINED INSTANCE. CHOOSE ANOTHER');
+            }
         }
     }
 }
 
-$flyweightObject = new Flyweight();
-$instances = ['A', 'B', 'UNDEFINED'];
+function getOutputOfClassesMethods(): void
+{
+    $flyweight = new Flyweight();
+    $instances = ['A', 'B', 'SOME_UNDEFINED_INSTANCE'];
 
-function clientCode($instances, $object)
-{
     foreach ($instances as $instance)
-{
-    try {
-        echo $object->getFlyweightClasses($instance)->get();
-    } catch (Exception $e) {
+    {
+        echo $flyweight->getObjectsOfClasses($instance)->get();
     }
 }
-}
 
-clientCode($instances, $flyweightObject);
+getOutputOfClassesMethods();
