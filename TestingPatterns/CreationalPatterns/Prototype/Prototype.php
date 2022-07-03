@@ -21,13 +21,18 @@ class Prototype
     }
 }
 
-$prototype = new Prototype();
-$prototype->getClass();
+function isPrototypeWork(): void
+{
+    $prototype = new Prototype();
+    $prototype->getClass();
 
-$clonedObject = clone $prototype;
-$clonedObject->getClass();
+    $clonedObject = clone $prototype;
+    $clonedObject->getClass();
 
-echo 'Unset $prototype' . PHP_EOL;
-unset($prototype);
+    echo 'Unset $prototype' . PHP_EOL;
+    unset($prototype);
 
-$clonedObject->getClass();
+    $clonedObject->getClass();
+}
+
+isPrototypeWork();

@@ -2,7 +2,7 @@
 
 // Solve the global scope problem. Data can be retrieved by GET method, and added by SET method.
 
-namespace testingPatterns\creationalPatterns\RegistryPattern;
+namespace testingPatterns\structuralPatterns\RegistryPattern;
 
 use Exception;
 

@@ -32,21 +32,11 @@ class SecondClass extends Factory
     }
 }
 
-class ThirdClass extends Factory
-{
-    public function build(): string
-    {
-        // TODO: Implement build() method.
-        return __CLASS__ . PHP_EOL;
-    }
-}
-
 function getClasses(): void
 {
     $array = [
         Factory::buildObject(new FirstClass()),
         Factory::buildObject(new SecondClass()),
-        Factory::buildObject(new ThirdClass()),
     ];
 
     foreach ($array as $element)
